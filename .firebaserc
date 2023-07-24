@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "hirome-rental"
+  },
+  "targets": {
+    "hirome-rental": {
+      "hosting": {
+        "center-site": [
+          "hirome-rental-center"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
