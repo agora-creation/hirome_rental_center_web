@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hirome_rental_center_web/common/functions.dart';
+import 'package:hirome_rental_center_web/models/order.dart';
 
 class OrderService {
   String collection = 'order';
@@ -36,5 +37,28 @@ class OrderService {
         .where('status', isNotEqualTo: 0)
         .orderBy('createdAt', descending: true)
         .startAt([endAt]).endAt([startAt]).snapshots();
+  }
+
+  Future<List<OrderModel>> selectList({
+    String? shopNumber,
+    required DateTime searchStart,
+    required DateTime searchEnd,
+  }) async {
+    List<OrderModel> ret = [];
+    Timestamp startAt = convertTimestamp(searchStart, false);
+    Timestamp endAt = convertTimestamp(searchEnd, true);
+    await firestore
+        .collection(collection)
+        .where('shopNumber', isEqualTo: shopNumber)
+        .orderBy('createdAt', descending: true)
+        .startAt([endAt])
+        .endAt([startAt])
+        .get()
+        .then((value) {
+          for (DocumentSnapshot<Map<String, dynamic>> map in value.docs) {
+            ret.add(OrderModel.fromSnapshot(map));
+          }
+        });
+    return ret;
   }
 }

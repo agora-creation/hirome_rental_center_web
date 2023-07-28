@@ -22,6 +22,8 @@ dependencies:
   modal_bottom_sheet: ^2.1.2
   top_snackbar_flutter: ^3.1.0
   calendar_date_picker2: ^0.5.2
+  month_picker_dialog: ^2.0.2
+  csv: ^5.0.2
   badges: ^3.1.1
   firebase_core: ^2.14.0
   firebase_auth: ^4.6.3
