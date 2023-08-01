@@ -10,6 +10,7 @@ import 'package:hirome_rental_center_web/services/order.dart';
 import 'package:hirome_rental_center_web/services/product.dart';
 import 'package:hirome_rental_center_web/widgets/animation_background.dart';
 import 'package:hirome_rental_center_web/widgets/cart_list.dart';
+import 'package:hirome_rental_center_web/widgets/cart_wash_list.dart';
 import 'package:hirome_rental_center_web/widgets/custom_header.dart';
 import 'package:hirome_rental_center_web/widgets/custom_sm_button.dart';
 import 'package:hirome_rental_center_web/widgets/order_list.dart';
@@ -146,13 +147,14 @@ class OrderDetailsDialog extends StatefulWidget {
 class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
   ProductService productService = ProductService();
   List<CartModel> carts = [];
+  List<ProductModel> products = [];
+  List<CartModel> cartsWash = [];
 
-  void _init() async {
-    carts.clear();
-    List<ProductModel> products = await productService.selectList(category: 9);
-    carts = widget.order.carts;
+  Future _init() async {
+    products = await productService.selectList(category: 9);
+    List<CartModel> tmpCartsWash = [];
     for (ProductModel product in products) {
-      carts.add(CartModel.fromMap({
+      tmpCartsWash.add(CartModel.fromMap({
         'id': product.id,
         'number': product.number,
         'name': product.name,
@@ -164,7 +166,11 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
         'deliveryQuantity': 0,
       }));
     }
-    setState(() {});
+    if (mounted) {
+      setState(() {
+        carts = widget.order.carts;
+      });
+    }
   }
 
   @override
@@ -181,46 +187,51 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
       insetPadding: const EdgeInsets.all(100),
       content: SizedBox(
         width: MediaQuery.of(context).size.width,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Center(
-                child: Text(
-                  '納品数量を確定して、受注してください',
-                  style: TextStyle(
-                    color: kGreyColor,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                '注文日時 : ${dateText('yyyy/MM/dd HH:mm', widget.order.createdAt)}',
-                style: const TextStyle(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Center(
+              child: Text(
+                '納品数量を確定して、受注してください',
+                style: TextStyle(
                   color: kGreyColor,
                   fontSize: 16,
                 ),
               ),
-              Text(
-                '発注元店舗 : ${widget.order.shopName}',
-                style: const TextStyle(
-                  color: kGreyColor,
-                  fontSize: 16,
-                ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              '注文日時 : ${dateText('yyyy/MM/dd HH:mm', widget.order.createdAt)}',
+              style: const TextStyle(
+                color: kGreyColor,
+                fontSize: 16,
               ),
-              const SizedBox(height: 8),
-              const Text(
-                '注文された商品',
-                style: TextStyle(fontSize: 16),
+            ),
+            Text(
+              '発注元店舗 : ${widget.order.shopName}',
+              style: const TextStyle(
+                color: kGreyColor,
+                fontSize: 16,
               ),
-              Column(
-                children: carts.map((cart) {
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              '注文された商品',
+              style: TextStyle(fontSize: 16),
+            ),
+            const Divider(height: 1, color: kGreyColor),
+            SizedBox(
+              height: 300,
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: carts.length,
+                itemBuilder: (context, index) {
+                  CartModel cart = carts[index];
                   return CartList(
                     cart: cart,
                     onRemoved: () {
-                      if (cart.deliveryQuantity < 0) return;
+                      if (cart.deliveryQuantity == 0) return;
                       setState(() {
                         cart.deliveryQuantity -= 1;
                       });
@@ -231,57 +242,74 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
                       });
                     },
                   );
-                }).toList(),
+                },
               ),
-              const SizedBox(height: 24),
-              Row(
-                children: [
-                  Expanded(
-                    child: CustomSmButton(
-                      label: 'キャンセルする',
-                      labelColor: kWhiteColor,
-                      backgroundColor: kOrangeColor,
-                      onPressed: () async {
-                        String? error = await orderProvider.cancel(
-                          widget.order,
-                        );
-                        if (error != null) {
-                          if (!mounted) return;
-                          showMessage(context, error, false);
-                          return;
-                        }
-                        if (!mounted) return;
-                        showMessage(context, 'キャンセルに成功しました', true);
-                        Navigator.pop(context);
-                      },
-                    ),
+            ),
+            const Divider(height: 1, color: kGreyColor),
+            const SizedBox(height: 8),
+            const Text(
+              '洗浄を追加する',
+              style: TextStyle(fontSize: 16),
+            ),
+            Row(
+              children: cartsWash.map((cart) {
+                return Expanded(
+                  child: CartWashList(
+                    cart: cart,
+                    onRemoved: () {},
+                    onAdded: () {},
                   ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: CustomSmButton(
-                      label: '受注する',
-                      labelColor: kWhiteColor,
-                      backgroundColor: kBlueColor,
-                      onPressed: () async {
-                        String? error = await orderProvider.ordered(
-                          order: widget.order,
-                          carts: carts,
-                        );
-                        if (error != null) {
-                          if (!mounted) return;
-                          showMessage(context, error, false);
-                          return;
-                        }
+                );
+              }).toList(),
+            ),
+            const SizedBox(height: 24),
+            Row(
+              children: [
+                Expanded(
+                  child: CustomSmButton(
+                    label: 'キャンセルする',
+                    labelColor: kWhiteColor,
+                    backgroundColor: kOrangeColor,
+                    onPressed: () async {
+                      String? error = await orderProvider.cancel(
+                        widget.order,
+                      );
+                      if (error != null) {
                         if (!mounted) return;
-                        showMessage(context, '受注に成功しました', true);
-                        Navigator.pop(context);
-                      },
-                    ),
+                        showMessage(context, error, false);
+                        return;
+                      }
+                      if (!mounted) return;
+                      showMessage(context, 'キャンセルに成功しました', true);
+                      Navigator.pop(context);
+                    },
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: CustomSmButton(
+                    label: '受注する',
+                    labelColor: kWhiteColor,
+                    backgroundColor: kBlueColor,
+                    onPressed: () async {
+                      String? error = await orderProvider.ordered(
+                        order: widget.order,
+                        carts: carts,
+                      );
+                      if (error != null) {
+                        if (!mounted) return;
+                        showMessage(context, error, false);
+                        return;
+                      }
+                      if (!mounted) return;
+                      showMessage(context, '受注に成功しました', true);
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
