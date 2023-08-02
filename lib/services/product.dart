@@ -19,7 +19,6 @@ class ProductService {
     await firestore
         .collection(collection)
         .where('category', isEqualTo: category)
-        .orderBy('category')
         .orderBy('priority', descending: false)
         .get()
         .then((value) {

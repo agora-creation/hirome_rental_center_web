@@ -6,6 +6,8 @@ import 'package:hirome_rental_center_web/models/cart.dart';
 import 'package:hirome_rental_center_web/models/order.dart';
 import 'package:hirome_rental_center_web/models/product.dart';
 import 'package:hirome_rental_center_web/providers/order.dart';
+import 'package:hirome_rental_center_web/screens/history.dart';
+import 'package:hirome_rental_center_web/screens/settings.dart';
 import 'package:hirome_rental_center_web/services/order.dart';
 import 'package:hirome_rental_center_web/services/product.dart';
 import 'package:hirome_rental_center_web/widgets/animation_background.dart';
@@ -50,7 +52,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const SizedBox(width: 24),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () => showBottomUpScreen(
+                        context,
+                        const HistoryScreen(),
+                      ),
                       child: const Text(
                         '受注履歴',
                         style: TextStyle(
@@ -61,7 +66,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const SizedBox(width: 24),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () => showBottomUpScreen(
+                        context,
+                        const SettingsScreen(),
+                      ),
                       child: const Text(
                         '設定',
                         style: TextStyle(
@@ -147,11 +155,10 @@ class OrderDetailsDialog extends StatefulWidget {
 class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
   ProductService productService = ProductService();
   List<CartModel> carts = [];
-  List<ProductModel> products = [];
   List<CartModel> cartsWash = [];
 
-  Future _init() async {
-    products = await productService.selectList(category: 9);
+  void _init() async {
+    List<ProductModel> products = await productService.selectList(category: 9);
     List<CartModel> tmpCartsWash = [];
     for (ProductModel product in products) {
       tmpCartsWash.add(CartModel.fromMap({
@@ -169,6 +176,7 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
     if (mounted) {
       setState(() {
         carts = widget.order.carts;
+        cartsWash = tmpCartsWash;
       });
     }
   }
@@ -220,9 +228,10 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
               '注文された商品',
               style: TextStyle(fontSize: 16),
             ),
+            const SizedBox(height: 4),
             const Divider(height: 1, color: kGreyColor),
             SizedBox(
-              height: 300,
+              height: 350,
               child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: carts.length,
@@ -246,18 +255,28 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
               ),
             ),
             const Divider(height: 1, color: kGreyColor),
-            const SizedBox(height: 8),
+            const SizedBox(height: 24),
             const Text(
               '洗浄を追加する',
               style: TextStyle(fontSize: 16),
             ),
+            const SizedBox(height: 4),
             Row(
               children: cartsWash.map((cart) {
                 return Expanded(
                   child: CartWashList(
                     cart: cart,
-                    onRemoved: () {},
-                    onAdded: () {},
+                    onRemoved: () {
+                      if (cart.deliveryQuantity == 0) return;
+                      setState(() {
+                        cart.deliveryQuantity -= 1;
+                      });
+                    },
+                    onAdded: () {
+                      setState(() {
+                        cart.deliveryQuantity += 1;
+                      });
+                    },
                   ),
                 );
               }).toList(),
@@ -295,6 +314,7 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
                       String? error = await orderProvider.ordered(
                         order: widget.order,
                         carts: carts,
+                        cartsWash: cartsWash,
                       );
                       if (error != null) {
                         if (!mounted) return;
