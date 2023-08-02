@@ -1,31 +1,42 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:hirome_rental_center_web/common/functions.dart';
 import 'package:hirome_rental_center_web/common/style.dart';
+import 'package:hirome_rental_center_web/models/product.dart';
 import 'package:hirome_rental_center_web/models/shop.dart';
-import 'package:hirome_rental_center_web/screens/agent_order2.dart';
-import 'package:hirome_rental_center_web/services/shop.dart';
-import 'package:hirome_rental_center_web/widgets/shop_list.dart';
+import 'package:hirome_rental_center_web/services/product.dart';
+import 'package:hirome_rental_center_web/widgets/product_list.dart';
 
-class AgentOrderScreen extends StatefulWidget {
-  const AgentOrderScreen({super.key});
+class AgentOrder2Screen extends StatefulWidget {
+  final ShopModel shop;
+
+  const AgentOrder2Screen({
+    required this.shop,
+    super.key,
+  });
 
   @override
-  State<AgentOrderScreen> createState() => _AgentOrderScreenState();
+  State<AgentOrder2Screen> createState() => _AgentOrder2ScreenState();
 }
 
-class _AgentOrderScreenState extends State<AgentOrderScreen> {
-  ShopService shopService = ShopService();
+class _AgentOrder2ScreenState extends State<AgentOrder2Screen> {
+  ProductService productService = ProductService();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kWhiteColor,
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         backgroundColor: kWhiteColor,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.chevron_left,
+            color: kBlackColor,
+            size: 32.0,
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
         title: const Text(
-          '食器センター : 代理発注 - 店舗選択',
+          '食器センター : 代理発注 - 商品選択',
           style: TextStyle(color: kBlackColor),
         ),
         actions: [
@@ -40,39 +51,33 @@ class _AgentOrderScreenState extends State<AgentOrderScreen> {
         child: Column(
           children: [
             const Text(
-              '注文する店舗を選択してください',
+              '以下、注文したい商品の数量を選択してください',
               style: TextStyle(fontSize: 16),
             ),
-            const SizedBox(height: 16),
-            const Divider(height: 0, color: kGreyColor),
+            const SizedBox(height: 8),
+            const Divider(height: 1, color: kGreyColor),
             Expanded(
               child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                stream: shopService.streamList(),
+                stream: productService.streamList(),
                 builder: (context, snapshot) {
-                  List<ShopModel> shops = [];
+                  List<ProductModel> products = [];
                   if (snapshot.hasData) {
                     for (DocumentSnapshot<Map<String, dynamic>> doc
                         in snapshot.data!.docs) {
-                      shops.add(ShopModel.fromSnapshot(doc));
+                      products.add(ProductModel.fromSnapshot(doc));
                     }
                   }
-                  if (shops.isEmpty) {
+                  if (products.isEmpty) {
                     return const Center(
-                      child: Text('注文できる店舗がありません'),
+                      child: Text('商品がありません'),
                     );
                   }
                   return ListView.builder(
                     shrinkWrap: true,
-                    itemCount: shops.length,
+                    itemCount: products.length,
                     itemBuilder: (context, index) {
-                      ShopModel shop = shops[index];
-                      return ShopList(
-                        shop: shop,
-                        onTap: () => pushScreen(
-                          context,
-                          AgentOrder2Screen(shop: shop),
-                        ),
-                      );
+                      ProductModel product = products[index];
+                      return ProductList(product: product);
                     },
                   );
                 },

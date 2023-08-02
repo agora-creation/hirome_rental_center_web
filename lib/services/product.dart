@@ -8,8 +8,6 @@ class ProductService {
   Stream<QuerySnapshot<Map<String, dynamic>>>? streamList() {
     return FirebaseFirestore.instance
         .collection(collection)
-        .where('category', isNotEqualTo: 9)
-        .orderBy('category')
         .orderBy('priority', descending: false)
         .snapshots();
   }

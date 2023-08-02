@@ -7,8 +7,6 @@ class ShopService {
   Stream<QuerySnapshot<Map<String, dynamic>>>? streamList() {
     return FirebaseFirestore.instance
         .collection(collection)
-        .where('authority', isEqualTo: 0)
-        .orderBy('authority')
         .orderBy('priority', descending: false)
         .snapshots();
   }
