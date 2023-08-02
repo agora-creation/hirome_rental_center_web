@@ -34,9 +34,11 @@ class OrderService {
     Timestamp endAt = convertTimestamp(searchEnd, true);
     return FirebaseFirestore.instance
         .collection(collection)
-        .where('status', isNotEqualTo: 0)
+        .where('status', whereIn: [1, 9])
         .orderBy('createdAt', descending: true)
-        .startAt([endAt]).endAt([startAt]).snapshots();
+        .startAt([endAt])
+        .endAt([startAt])
+        .snapshots();
   }
 
   Future<List<OrderModel>> selectList({

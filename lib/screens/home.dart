@@ -6,6 +6,7 @@ import 'package:hirome_rental_center_web/models/cart.dart';
 import 'package:hirome_rental_center_web/models/order.dart';
 import 'package:hirome_rental_center_web/models/product.dart';
 import 'package:hirome_rental_center_web/providers/order.dart';
+import 'package:hirome_rental_center_web/screens/agent_order.dart';
 import 'package:hirome_rental_center_web/screens/history.dart';
 import 'package:hirome_rental_center_web/screens/settings.dart';
 import 'package:hirome_rental_center_web/services/order.dart';
@@ -41,7 +42,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   title: '食器センター : 受注未処理',
                   actions: [
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () => showBottomUpScreen(
+                        context,
+                        const AgentOrderScreen(),
+                      ),
                       child: const Text(
                         '代理発注',
                         style: TextStyle(
@@ -217,7 +221,7 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
               ),
             ),
             Text(
-              '発注元店舗 : ${widget.order.shopName}',
+              '注文された店舗 : ${widget.order.shopName}',
               style: const TextStyle(
                 color: kGreyColor,
                 fontSize: 16,

@@ -58,6 +58,33 @@ class OrderProvider with ChangeNotifier {
     return error;
   }
 
+  Future<String?> reOrdered({
+    OrderModel? order,
+    List<CartModel>? carts,
+  }) async {
+    String? error;
+    if (order == null) return '受注に失敗しました';
+    if (carts == null) return '受注に失敗しました';
+    if (carts.isEmpty) return '受注に失敗しました';
+    try {
+      List<Map> newCarts = [];
+      for (CartModel cart in carts) {
+        if (cart.deliveryQuantity > 0) {
+          newCarts.add(cart.toMap());
+        }
+      }
+      orderService.update({
+        'id': order.id,
+        'carts': newCarts,
+        'status': 1,
+        'updatedAt': DateTime.now(),
+      });
+    } catch (e) {
+      error = '再受注に失敗しました';
+    }
+    return error;
+  }
+
   Future<String?> cancel(OrderModel order) async {
     String? error;
     try {
