@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hirome_rental_center_web/common/functions.dart';
 import 'package:hirome_rental_center_web/models/cart.dart';
 import 'package:hirome_rental_center_web/models/order.dart';
 import 'package:hirome_rental_center_web/models/product.dart';
+import 'package:hirome_rental_center_web/models/shop.dart';
 import 'package:hirome_rental_center_web/services/cart.dart';
 import 'package:hirome_rental_center_web/services/order.dart';
 
@@ -26,6 +28,40 @@ class OrderProvider with ChangeNotifier {
     searchStart = start;
     searchEnd = end;
     notifyListeners();
+  }
+
+  Future<String?> create({
+    ShopModel? shop,
+    List<CartModel>? carts,
+  }) async {
+    String? error;
+    if (shop == null) return '注文に失敗しました';
+    if (carts == null) return '注文に失敗しました';
+    if (carts.isEmpty) return '注文に失敗しました';
+    try {
+      String id = orderService.id();
+      String dateTime = dateText('yyyyMMddHHmmss', DateTime.now());
+      String number = '${shop.number}-$dateTime';
+      List<Map> newCarts = [];
+      for (CartModel cart in carts) {
+        newCarts.add(cart.toMap());
+      }
+      orderService.create({
+        'id': id,
+        'number': number,
+        'shopId': shop.id,
+        'shopNumber': shop.number,
+        'shopName': shop.name,
+        'shopInvoiceName': shop.invoiceName,
+        'carts': newCarts,
+        'status': 1,
+        'updatedAt': DateTime.now(),
+        'createdAt': DateTime.now(),
+      });
+    } catch (e) {
+      error = '注文に失敗しました';
+    }
+    return error;
   }
 
   Future<String?> ordered({

@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:hirome_rental_center_web/common/functions.dart';
 import 'package:hirome_rental_center_web/common/style.dart';
 import 'package:hirome_rental_center_web/models/cart.dart';
 import 'package:hirome_rental_center_web/models/shop.dart';
+import 'package:hirome_rental_center_web/providers/order.dart';
+import 'package:hirome_rental_center_web/widgets/custom_lg_button.dart';
+import 'package:hirome_rental_center_web/widgets/link_text.dart';
+import 'package:provider/provider.dart';
 
 class AgentOrder3Screen extends StatefulWidget {
   final ShopModel shop;
@@ -20,6 +25,8 @@ class AgentOrder3Screen extends StatefulWidget {
 class _AgentOrder3ScreenState extends State<AgentOrder3Screen> {
   @override
   Widget build(BuildContext context) {
+    final orderProvider = Provider.of<OrderProvider>(context);
+
     return Scaffold(
       backgroundColor: kWhiteColor,
       appBar: AppBar(
@@ -33,15 +40,72 @@ class _AgentOrder3ScreenState extends State<AgentOrder3Screen> {
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
-          '食器センター : 代理発注 - 発注内容確認',
+          '食器センター : 代理注文 - 注文確認',
           style: TextStyle(color: kBlackColor),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.close, color: kBlackColor),
-            onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
-          ),
-        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 400),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              '注文の内容を確認してください\n間違いなければ『注文する』ボタンを押してください',
+              style: TextStyle(
+                color: kRedColor,
+                fontSize: 16,
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              '注文する店舗 : ${widget.shop.name}',
+              style: const TextStyle(fontSize: 18),
+            ),
+            const SizedBox(height: 8),
+            const Text('注文する商品'),
+            const Divider(height: 1, color: kGreyColor),
+            const SizedBox(
+              height: 350,
+            ),
+            const Divider(height: 1, color: kGreyColor),
+            const SizedBox(height: 32),
+            CustomLgButton(
+              label: '注文する',
+              labelColor: kWhiteColor,
+              backgroundColor: kBlueColor,
+              onPressed: () async {
+                String? error = await orderProvider.create(
+                  shop: widget.shop,
+                  carts: widget.carts,
+                );
+                if (error != null) {
+                  if (!mounted) return;
+                  showMessage(context, error, false);
+                  return;
+                }
+                await orderProvider.clearCart();
+                await orderProvider.initCarts();
+                if (!mounted) return;
+                showMessage(context, '注文に成功しました', true);
+                Navigator.of(context, rootNavigator: true).pop();
+              },
+            ),
+            const SizedBox(height: 32),
+            Center(
+              child: LinkText(
+                label: 'カートを空にする',
+                labelColor: kRedColor,
+                onTap: () async {
+                  await orderProvider.clearCart();
+                  await orderProvider.initCarts();
+                  if (!mounted) return;
+                  showMessage(context, 'カートを空にしました', true);
+                  Navigator.of(context, rootNavigator: true).pop();
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

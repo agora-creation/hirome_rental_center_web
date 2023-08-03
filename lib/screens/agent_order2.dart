@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hirome_rental_center_web/common/functions.dart';
 import 'package:hirome_rental_center_web/common/style.dart';
 import 'package:hirome_rental_center_web/models/cart.dart';
 import 'package:hirome_rental_center_web/models/product.dart';
 import 'package:hirome_rental_center_web/models/shop.dart';
 import 'package:hirome_rental_center_web/providers/order.dart';
+import 'package:hirome_rental_center_web/screens/agent_order3.dart';
 import 'package:hirome_rental_center_web/services/product.dart';
 import 'package:hirome_rental_center_web/widgets/custom_image.dart';
 import 'package:hirome_rental_center_web/widgets/custom_lg_button.dart';
@@ -45,12 +47,18 @@ class _AgentOrder2ScreenState extends State<AgentOrder2Screen> {
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
-          '食器センター : 代理発注 - 商品選択',
+          '食器センター : 代理注文 - 商品選択',
           style: TextStyle(color: kBlackColor),
         ),
         actions: [
           TextButton(
-            onPressed: () async {},
+            onPressed: () => pushScreen(
+              context,
+              AgentOrder3Screen(
+                shop: widget.shop,
+                carts: orderProvider.carts,
+              ),
+            ),
             child: const Text('注文に進む'),
           ),
         ],

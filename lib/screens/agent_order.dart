@@ -25,7 +25,7 @@ class _AgentOrderScreenState extends State<AgentOrderScreen> {
         automaticallyImplyLeading: false,
         backgroundColor: kWhiteColor,
         title: const Text(
-          '食器センター : 代理発注 - 店舗選択',
+          '食器センター : 代理注文 - 店舗選択',
           style: TextStyle(color: kBlackColor),
         ),
         actions: [

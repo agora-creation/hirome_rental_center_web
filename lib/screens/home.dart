@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         const AgentOrderScreen(),
                       ),
                       child: const Text(
-                        '代理発注',
+                        '代理注文',
                         style: TextStyle(
                           color: kWhiteColor,
                           fontSize: 16,
