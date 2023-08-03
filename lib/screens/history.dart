@@ -9,7 +9,6 @@ import 'package:hirome_rental_center_web/services/order.dart';
 import 'package:hirome_rental_center_web/widgets/cart_list.dart';
 import 'package:hirome_rental_center_web/widgets/custom_sm_button.dart';
 import 'package:hirome_rental_center_web/widgets/date_range_field.dart';
-import 'package:hirome_rental_center_web/widgets/header_button.dart';
 import 'package:hirome_rental_center_web/widgets/history_list_tile.dart';
 import 'package:provider/provider.dart';
 
@@ -37,12 +36,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
           style: TextStyle(color: kBlackColor),
         ),
         actions: [
-          HeaderButton(
-            label: 'CSVダウンロード',
-            labelColor: kWhiteColor,
-            backgroundColor: kGreenColor,
-            onPressed: () {},
-          ),
           IconButton(
             icon: const Icon(Icons.close, color: kBlackColor),
             onPressed: () => Navigator.of(context, rootNavigator: true).pop(),

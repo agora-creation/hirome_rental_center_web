@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:hirome_rental_center_web/models/cart.dart';
 import 'package:hirome_rental_center_web/models/order.dart';
+import 'package:hirome_rental_center_web/models/product.dart';
+import 'package:hirome_rental_center_web/services/cart.dart';
 import 'package:hirome_rental_center_web/services/order.dart';
 
 class OrderProvider with ChangeNotifier {
+  CartService cartService = CartService();
   OrderService orderService = OrderService();
+  List<CartModel> _carts = [];
+  List<CartModel> get carts => _carts;
 
   DateTime searchStart = DateTime(
     DateTime.now().year,
@@ -97,5 +102,22 @@ class OrderProvider with ChangeNotifier {
       error = 'キャンセルに失敗しました';
     }
     return error;
+  }
+
+  Future initCarts() async {
+    _carts = await cartService.get();
+    notifyListeners();
+  }
+
+  Future addCarts(ProductModel product, int requestQuantity) async {
+    await cartService.add(product, requestQuantity);
+  }
+
+  Future removeCart(CartModel cart) async {
+    await cartService.remove(cart);
+  }
+
+  Future clearCart() async {
+    await cartService.clear();
   }
 }
