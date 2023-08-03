@@ -48,6 +48,16 @@ Future setPrefsInt(String key, int value) async {
   prefs.setInt(key, value);
 }
 
+Future<double?> getPrefsDouble(String key) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getDouble(key);
+}
+
+Future setPrefsDouble(String key, double value) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setDouble(key, value);
+}
+
 Future<String?> getPrefsString(String key) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   return prefs.getString(key);
@@ -151,5 +161,7 @@ Timestamp convertTimestamp(DateTime date, bool end) {
 Future fcmSoundPlay() async {
   final assetsAudioPlayer = AssetsAudioPlayer();
   await assetsAudioPlayer.open(Audio(kDefaultSoundUrl));
+  double orderVolume = await getPrefsDouble('orderVolume') ?? 0.5;
+  assetsAudioPlayer.setVolume(orderVolume);
   await assetsAudioPlayer.play();
 }

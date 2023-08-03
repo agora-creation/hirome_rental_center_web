@@ -74,10 +74,10 @@ class ProductList extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        '${contain.first.requestQuantity}${contain.first.unit}選択中',
+                        '${contain.first.requestQuantity}${contain.first.unit} 選択中',
                         style: const TextStyle(
                           color: kWhiteColor,
-                          fontSize: 20,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

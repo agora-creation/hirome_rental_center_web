@@ -32,26 +32,8 @@ Future main() async {
       Future.delayed(const Duration(milliseconds: 3000)),
     ]);
   }
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
-  NotificationSettings settings = await messaging.requestPermission(
-    alert: true,
-    announcement: false,
-    badge: true,
-    carPlay: false,
-    criticalAlert: false,
-    provisional: false,
-    sound: true,
-  );
-  print('User granted permission: ${settings.authorizationStatus}');
-  String token = (await messaging.getToken(vapidKey: kFcmKey)).toString();
-  print(token);
   FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-    print('Got a message whilst in the foreground!');
-
     if (message.notification != null) {
-      print('onForegroundMessage Title: ${message.notification?.title}');
-      print('onForegroundMessage Body: ${message.notification?.body}');
-
       await fcmSoundPlay();
     }
   });
