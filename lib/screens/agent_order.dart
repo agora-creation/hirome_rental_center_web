@@ -78,10 +78,7 @@ class _AgentOrderScreenState extends State<AgentOrderScreen> {
                           if (!mounted) return;
                           pushScreen(
                             context,
-                            AgentOrder2Screen(
-                              orderProvider: orderProvider,
-                              shop: shop,
-                            ),
+                            AgentOrder2Screen(shop: shop),
                           );
                         },
                       );
