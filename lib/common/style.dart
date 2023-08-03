@@ -6,6 +6,7 @@ const kSystemName = '食器レンタルシステム';
 const kForName = '食器センター専用';
 
 const kDefaultImageUrl = 'assets/images/default.png';
+const kDefaultSoundUrl = 'assets/sounds/default.mp3';
 
 const kBaseColor = Color(0xFF009688);
 const kWhiteColor = Color(0xFFFFFFFF);

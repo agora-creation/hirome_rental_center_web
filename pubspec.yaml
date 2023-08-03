@@ -30,6 +30,7 @@ dependencies:
   firebase_core: ^2.14.0
   firebase_auth: ^4.6.3
   cloud_firestore: ^4.8.1
+  firebase_messaging: ^14.6.5
 
 dependency_overrides:
   modal_bottom_sheet: ^3.0.0-pre
@@ -46,6 +47,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/sounds/
 
   fonts:
     - family: SourceHanSansJP-Bold

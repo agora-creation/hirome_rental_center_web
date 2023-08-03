@@ -1,5 +1,7 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hirome_rental_center_web/common/style.dart';
@@ -30,6 +32,33 @@ Future main() async {
       Future.delayed(const Duration(milliseconds: 3000)),
     ]);
   }
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  NotificationSettings settings = await messaging.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+  print('User granted permission: ${settings.authorizationStatus}');
+  String token = (await messaging.getToken(
+    vapidKey: "BGpdLRs......",
+  ))
+      .toString();
+  print(token);
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    print('Got a message whilst in the foreground!');
+
+    if (message.notification != null) {
+      print('onForegroundMessage Title: ${message.notification?.title}');
+      print('onForegroundMessage Body: ${message.notification?.body}');
+      final audioPlayer = AudioPlayer();
+      audioPlayer.play(AssetSource(kDefaultSoundUrl));
+      audioPlayer.dispose();
+    }
+  });
   runApp(const MyApp());
 }
 

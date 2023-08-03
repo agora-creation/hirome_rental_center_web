@@ -4,6 +4,7 @@ import 'package:hirome_rental_center_web/common/style.dart';
 import 'package:hirome_rental_center_web/providers/auth.dart';
 import 'package:hirome_rental_center_web/screens/login.dart';
 import 'package:hirome_rental_center_web/widgets/link_text.dart';
+import 'package:hirome_rental_center_web/widgets/setting_list_tile.dart';
 import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -39,6 +40,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SettingListTile(
+              iconData: Icons.volume_up,
+              label: '注文通知音設定',
+              topBorder: true,
+              onTap: () {},
+            ),
             const SizedBox(height: 32),
             Center(
               child: LinkText(
