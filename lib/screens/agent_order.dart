@@ -72,13 +72,18 @@ class _AgentOrderScreenState extends State<AgentOrderScreen> {
                       ShopModel shop = shops[index];
                       return ShopList(
                         shop: shop,
-                        onTap: () => pushScreen(
-                          context,
-                          AgentOrder2Screen(
-                            orderProvider: orderProvider,
-                            shop: shop,
-                          ),
-                        ),
+                        onTap: () async {
+                          await orderProvider.clearCart();
+                          await orderProvider.initCarts();
+                          if (!mounted) return;
+                          pushScreen(
+                            context,
+                            AgentOrder2Screen(
+                              orderProvider: orderProvider,
+                              shop: shop,
+                            ),
+                          );
+                        },
                       );
                     },
                   );

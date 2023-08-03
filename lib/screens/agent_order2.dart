@@ -31,17 +31,6 @@ class AgentOrder2Screen extends StatefulWidget {
 class _AgentOrder2ScreenState extends State<AgentOrder2Screen> {
   ProductService productService = ProductService();
 
-  void _init() async {
-    await widget.orderProvider.clearCart();
-    await widget.orderProvider.initCarts();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _init();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
