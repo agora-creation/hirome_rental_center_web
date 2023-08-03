@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -145,4 +146,10 @@ Timestamp convertTimestamp(DateTime date, bool end) {
   return Timestamp.fromMillisecondsSinceEpoch(
     DateTime.parse(dateTime).millisecondsSinceEpoch,
   );
+}
+
+Future fcmSoundPlay() async {
+  final assetsAudioPlayer = AssetsAudioPlayer();
+  await assetsAudioPlayer.open(Audio(kDefaultSoundUrl));
+  await assetsAudioPlayer.play();
 }

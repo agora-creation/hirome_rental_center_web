@@ -1,9 +1,9 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:hirome_rental_center_web/common/functions.dart';
 import 'package:hirome_rental_center_web/common/style.dart';
 import 'package:hirome_rental_center_web/providers/auth.dart';
 import 'package:hirome_rental_center_web/providers/order.dart';
@@ -45,15 +45,14 @@ Future main() async {
   print('User granted permission: ${settings.authorizationStatus}');
   String token = (await messaging.getToken(vapidKey: kFcmKey)).toString();
   print(token);
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
     print('Got a message whilst in the foreground!');
 
     if (message.notification != null) {
       print('onForegroundMessage Title: ${message.notification?.title}');
       print('onForegroundMessage Body: ${message.notification?.body}');
-      final audioPlayer = AudioPlayer();
-      audioPlayer.play(AssetSource(kDefaultSoundUrl));
-      audioPlayer.dispose();
+
+      await fcmSoundPlay();
     }
   });
   runApp(const MyApp());
