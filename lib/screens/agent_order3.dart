@@ -4,6 +4,8 @@ import 'package:hirome_rental_center_web/common/style.dart';
 import 'package:hirome_rental_center_web/models/cart.dart';
 import 'package:hirome_rental_center_web/models/shop.dart';
 import 'package:hirome_rental_center_web/providers/order.dart';
+import 'package:hirome_rental_center_web/screens/home.dart';
+import 'package:hirome_rental_center_web/widgets/cart_list2.dart';
 import 'package:hirome_rental_center_web/widgets/custom_lg_button.dart';
 import 'package:hirome_rental_center_web/widgets/link_text.dart';
 import 'package:provider/provider.dart';
@@ -64,8 +66,16 @@ class _AgentOrder3ScreenState extends State<AgentOrder3Screen> {
             const SizedBox(height: 8),
             const Text('注文する商品'),
             const Divider(height: 1, color: kGreyColor),
-            const SizedBox(
+            SizedBox(
               height: 350,
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: widget.carts.length,
+                itemBuilder: (context, index) {
+                  CartModel cart = widget.carts[index];
+                  return CartList2(cart: cart);
+                },
+              ),
             ),
             const Divider(height: 1, color: kGreyColor),
             const SizedBox(height: 32),
@@ -87,7 +97,7 @@ class _AgentOrder3ScreenState extends State<AgentOrder3Screen> {
                 await orderProvider.initCarts();
                 if (!mounted) return;
                 showMessage(context, '注文に成功しました', true);
-                Navigator.of(context, rootNavigator: true).pop();
+                pushReplacementScreen(context, const HomeScreen());
               },
             ),
             const SizedBox(height: 32),

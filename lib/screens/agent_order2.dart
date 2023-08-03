@@ -13,12 +13,13 @@ import 'package:hirome_rental_center_web/widgets/custom_lg_button.dart';
 import 'package:hirome_rental_center_web/widgets/link_text.dart';
 import 'package:hirome_rental_center_web/widgets/product_list.dart';
 import 'package:hirome_rental_center_web/widgets/quantity_button.dart';
-import 'package:provider/provider.dart';
 
 class AgentOrder2Screen extends StatefulWidget {
+  final OrderProvider orderProvider;
   final ShopModel shop;
 
   const AgentOrder2Screen({
+    required this.orderProvider,
     required this.shop,
     super.key,
   });
@@ -30,10 +31,19 @@ class AgentOrder2Screen extends StatefulWidget {
 class _AgentOrder2ScreenState extends State<AgentOrder2Screen> {
   ProductService productService = ProductService();
 
+  void _init() async {
+    await widget.orderProvider.clearCart();
+    await widget.orderProvider.initCarts();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _init();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final orderProvider = Provider.of<OrderProvider>(context);
-
     return Scaffold(
       backgroundColor: kWhiteColor,
       appBar: AppBar(
@@ -56,7 +66,7 @@ class _AgentOrder2ScreenState extends State<AgentOrder2Screen> {
               context,
               AgentOrder3Screen(
                 shop: widget.shop,
-                carts: orderProvider.carts,
+                carts: widget.orderProvider.carts,
               ),
             ),
             child: const Text('注文に進む'),
@@ -101,15 +111,15 @@ class _AgentOrder2ScreenState extends State<AgentOrder2Screen> {
                       ProductModel product = products[index];
                       return ProductList(
                         product: product,
-                        carts: orderProvider.carts,
+                        carts: widget.orderProvider.carts,
                         onTap: () => showDialog(
                           context: context,
                           builder: (context) => ProductDetailsDialog(
-                            orderProvider: orderProvider,
+                            orderProvider: widget.orderProvider,
                             product: product,
                           ),
                         ).then((value) {
-                          orderProvider.initCarts();
+                          widget.orderProvider.initCarts();
                         }),
                       );
                     },

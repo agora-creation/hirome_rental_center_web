@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:hirome_rental_center_web/common/functions.dart';
 import 'package:hirome_rental_center_web/common/style.dart';
 import 'package:hirome_rental_center_web/models/shop.dart';
+import 'package:hirome_rental_center_web/providers/order.dart';
 import 'package:hirome_rental_center_web/screens/agent_order2.dart';
 import 'package:hirome_rental_center_web/services/shop.dart';
 import 'package:hirome_rental_center_web/widgets/shop_list.dart';
+import 'package:provider/provider.dart';
 
 class AgentOrderScreen extends StatefulWidget {
   const AgentOrderScreen({super.key});
@@ -19,6 +21,8 @@ class _AgentOrderScreenState extends State<AgentOrderScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final orderProvider = Provider.of<OrderProvider>(context);
+
     return Scaffold(
       backgroundColor: kWhiteColor,
       appBar: AppBar(
@@ -70,7 +74,10 @@ class _AgentOrderScreenState extends State<AgentOrderScreen> {
                         shop: shop,
                         onTap: () => pushScreen(
                           context,
-                          AgentOrder2Screen(shop: shop),
+                          AgentOrder2Screen(
+                            orderProvider: orderProvider,
+                            shop: shop,
+                          ),
                         ),
                       );
                     },
