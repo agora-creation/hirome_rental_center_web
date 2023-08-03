@@ -43,10 +43,7 @@ Future main() async {
     sound: true,
   );
   print('User granted permission: ${settings.authorizationStatus}');
-  String token = (await messaging.getToken(
-    vapidKey: "BGpdLRs......",
-  ))
-      .toString();
+  String token = (await messaging.getToken(vapidKey: kFcmKey)).toString();
   print(token);
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     print('Got a message whilst in the foreground!');

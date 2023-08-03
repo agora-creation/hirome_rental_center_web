@@ -8,6 +8,9 @@ const kForName = '食器センター専用';
 const kDefaultImageUrl = 'assets/images/default.png';
 const kDefaultSoundUrl = 'assets/sounds/default.mp3';
 
+const kFcmKey =
+    'BP7LbyMtmthGwJKufI8lpdsDHOTyxFVisY4sY2YUT7qNPtWI6P_H6IXRKJ7bWe7Ggf_czAZzwHPE7oC1fIkDcBM';
+
 const kBaseColor = Color(0xFF009688);
 const kWhiteColor = Color(0xFFFFFFFF);
 const kBlackColor = Color(0xFF333333);
