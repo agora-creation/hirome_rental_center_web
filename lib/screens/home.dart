@@ -42,6 +42,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   title: '食器センター : 受注未処理',
                   actions: [
                     GestureDetector(
+                      onTap: () async {
+                        await testPrint();
+                      },
+                      child: const Text(
+                        'テストプリント',
+                        style: TextStyle(
+                          color: kWhiteColor,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 24),
+                    GestureDetector(
                       onTap: () => showBottomUpScreen(
                         context,
                         const AgentOrderScreen(),

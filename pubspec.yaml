@@ -25,7 +25,7 @@ dependencies:
   month_picker_dialog: ^2.0.2
   csv: ^5.0.2
   badges: ^3.1.1
-  esc_pos_printer: ^4.1.0
+  printing: ^5.11.0
   assets_audio_player: ^3.0.6
   firebase_core: ^2.14.0
   firebase_auth: ^4.6.3
@@ -46,6 +46,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/fonts/
     - assets/images/
     - assets/sounds/
 

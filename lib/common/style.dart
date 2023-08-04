@@ -8,6 +8,8 @@ const kForName = '食器センター専用';
 const kDefaultImageUrl = 'assets/images/default.png';
 const kDefaultSoundUrl = 'assets/sounds/default.mp3';
 
+const kPdfFontUrl = 'assets/fonts/GenShinGothic-Regular.ttf';
+
 const kFcmKey =
     'BP7LbyMtmthGwJKufI8lpdsDHOTyxFVisY4sY2YUT7qNPtWI6P_H6IXRKJ7bWe7Ggf_czAZzwHPE7oC1fIkDcBM';
 

@@ -4,9 +4,13 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hirome_rental_center_web/common/style.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:printing/printing.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
@@ -164,4 +168,33 @@ Future fcmSoundPlay() async {
   double orderVolume = await getPrefsDouble('orderVolume') ?? 0.5;
   assetsAudioPlayer.setVolume(orderVolume);
   await assetsAudioPlayer.play();
+}
+
+Future testPrint() async {
+  final pdf = pw.Document();
+  final font = await rootBundle.load(kPdfFontUrl);
+  final ttf = pw.Font.ttf(font);
+  final titleStyle = pw.TextStyle(font: ttf, fontSize: 16);
+  final bodyStyle = pw.TextStyle(font: ttf, fontSize: 12);
+  pdf.addPage(pw.Page(
+    pageFormat: PdfPageFormat.roll57,
+    build: (pw.Context context) {
+      return pw.Column(
+        crossAxisAlignment: pw.CrossAxisAlignment.start,
+        children: [
+          pw.Center(child: pw.Text('納品書', style: titleStyle)),
+          pw.SizedBox(height: 8),
+          pw.Text('やいろ亭', style: bodyStyle),
+          pw.Text('――――――――', style: bodyStyle),
+          pw.Text('洗浄(13)', style: bodyStyle),
+          pw.Text('――――――――', style: bodyStyle),
+          pw.SizedBox(height: 8),
+          pw.Center(child: pw.Text('2023年08月04日', style: titleStyle)),
+        ],
+      );
+    },
+  ));
+  await Printing.layoutPdf(
+    onLayout: (PdfPageFormat format) async => pdf.save(),
+  );
 }
