@@ -130,6 +130,14 @@ void showMessage(BuildContext context, String message, bool success) {
   );
 }
 
+void showNewOrderMessage(BuildContext context) {
+  showTopSnackBar(
+    Overlay.of(context),
+    const CustomSnackBar.info(message: '新しい注文がありました'),
+    snackBarPosition: SnackBarPosition.top,
+  );
+}
+
 Future<List<DateTime?>?> showDataRangePickerDialog(
   BuildContext context,
   DateTime? startValue,

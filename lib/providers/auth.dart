@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hirome_rental_center_web/common/functions.dart';
+import 'package:hirome_rental_center_web/services/center.dart';
+import 'package:hirome_rental_center_web/services/messaging.dart';
 
 enum AuthStatus {
   authenticated,
@@ -15,6 +17,8 @@ class AuthProvider with ChangeNotifier {
   FirebaseAuth? auth;
   User? _authUser;
   User? get authUser => _authUser;
+  CenterService centerService = CenterService();
+  MessagingService messagingService = MessagingService();
 
   TextEditingController loginId = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -37,6 +41,12 @@ class AuthProvider with ChangeNotifier {
         _authUser = value.user;
         if (loginId.text == 'syokki' && password.text == 'hirome0101') {
           await setPrefsString('loginId', 'syokki');
+          String token = await messagingService.getToken();
+          centerService.create({
+            'id': value.user?.uid,
+            'token': token,
+            'createdAt': DateTime.now(),
+          });
         } else {
           await auth?.signOut();
           error = 'ログインに失敗しました';
@@ -54,6 +64,7 @@ class AuthProvider with ChangeNotifier {
     await auth?.signOut();
     _status = AuthStatus.unauthenticated;
     await removePrefs('loginId');
+    centerService.delete({'id': _authUser?.uid});
     notifyListeners();
     return Future.delayed(Duration.zero);
   }
