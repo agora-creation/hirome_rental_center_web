@@ -32,7 +32,11 @@ Future main() async {
       Future.delayed(const Duration(milliseconds: 3000)),
     ]);
   }
-
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+    if (message.notification != null) {
+      await fcmSoundPlay();
+    }
+  });
   runApp(const MyApp());
 }
 
@@ -63,29 +67,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class SplashController extends StatefulWidget {
+class SplashController extends StatelessWidget {
   const SplashController({super.key});
-
-  @override
-  State<SplashController> createState() => _SplashControllerState();
-}
-
-class _SplashControllerState extends State<SplashController> {
-  void _init() async {
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      if (message.notification != null) {
-        await fcmSoundPlay();
-        if (!mounted) return;
-        showNewOrderMessage(context);
-      }
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _init();
-  }
 
   @override
   Widget build(BuildContext context) {
