@@ -187,6 +187,12 @@ Future testPrint() async {
           pw.Text('やいろ亭', style: bodyStyle),
           pw.Text('――――――――', style: bodyStyle),
           pw.Text('洗浄(13)', style: bodyStyle),
+          pw.Text('洗浄(13)', style: bodyStyle),
+          pw.Text('洗浄(13)', style: bodyStyle),
+          pw.Text('洗浄(13)', style: bodyStyle),
+          pw.Text('洗浄(13)', style: bodyStyle),
+          pw.Text('洗浄(13)', style: bodyStyle),
+          pw.Text('洗浄(13)', style: bodyStyle),
           pw.Text('――――――――', style: bodyStyle),
           pw.SizedBox(height: 8),
           pw.Center(child: pw.Text('2023年08月04日', style: titleStyle)),
@@ -196,5 +202,7 @@ Future testPrint() async {
   ));
   await Printing.layoutPdf(
     onLayout: (PdfPageFormat format) async => pdf.save(),
+    format: PdfPageFormat.roll57,
+    usePrinterSettings: true,
   );
 }
