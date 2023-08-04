@@ -79,6 +79,11 @@ class AuthProvider with ChangeNotifier {
         _status = AuthStatus.unauthenticated;
       } else {
         _status = AuthStatus.authenticated;
+        String token = await messagingService.getToken();
+        centerService.update({
+          'id': _authUser?.uid,
+          'token': token,
+        });
       }
     }
     notifyListeners();
