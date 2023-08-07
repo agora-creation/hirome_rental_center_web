@@ -58,6 +58,13 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 if (selected != null &&
                     selected.first != null &&
                     selected.last != null) {
+                  var diff = selected.last!.difference(selected.first!);
+                  int diffDays = diff.inDays;
+                  if (diffDays > 31) {
+                    if (!mounted) return;
+                    showMessage(context, '1ヵ月以上の範囲が選択されています', false);
+                    return;
+                  }
                   orderProvider.searchChange(selected.first!, selected.last!);
                 }
               },
