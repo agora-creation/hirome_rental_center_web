@@ -196,11 +196,27 @@ class OrderProvider with ChangeNotifier {
     final pdf = pw.Document();
     final font = await rootBundle.load(kPdfFontUrl);
     final ttf = pw.Font.ttf(font);
-    final headerStyle = pw.TextStyle(font: ttf, fontSize: 16);
-    final shopStyle = pw.TextStyle(font: ttf, fontSize: 13);
-    final productStyle = pw.TextStyle(font: ttf, fontSize: 12);
-    final dateStyle = pw.TextStyle(font: ttf, fontSize: 10);
-    final signStyle = pw.TextStyle(font: ttf, fontSize: 8);
+    final headerStyle = pw.TextStyle(
+      font: ttf,
+      fontSize: 14,
+      fontWeight: pw.FontWeight.bold,
+    );
+    final shopStyle = pw.TextStyle(
+      font: ttf,
+      fontSize: 12,
+    );
+    final productStyle = pw.TextStyle(
+      font: ttf,
+      fontSize: 11,
+    );
+    final dateStyle = pw.TextStyle(
+      font: ttf,
+      fontSize: 10,
+    );
+    final signStyle = pw.TextStyle(
+      font: ttf,
+      fontSize: 8,
+    );
     List<pw.TableRow> tableRows = [];
     for (CartModel cart in carts) {
       tableRows.add(pw.TableRow(
@@ -225,7 +241,7 @@ class OrderProvider with ChangeNotifier {
             pw.Center(child: pw.Text('納品書', style: headerStyle)),
             pw.SizedBox(height: 4),
             pw.Text('$shopName　様', style: shopStyle),
-            pw.SizedBox(height: 4),
+            pw.SizedBox(height: 8),
             pw.Table(
               columnWidths: {
                 0: const pw.IntrinsicColumnWidth(),
@@ -234,7 +250,7 @@ class OrderProvider with ChangeNotifier {
               },
               children: tableRows,
             ),
-            pw.SizedBox(height: 4),
+            pw.SizedBox(height: 8),
             pw.Text('注文日時', style: dateStyle),
             pw.Text(
               dateText('yyyy年MM月dd日 HH:mm', createdAt),
