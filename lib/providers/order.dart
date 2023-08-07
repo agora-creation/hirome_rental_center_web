@@ -48,8 +48,10 @@ class OrderProvider with ChangeNotifier {
       String dateTime = dateText('yyyyMMddHHmmss', DateTime.now());
       String number = '${shop.number}-$dateTime';
       List<Map> newCarts = [];
+      List<CartModel> newCarts2 = [];
       for (CartModel cart in carts) {
         newCarts.add(cart.toMap());
+        newCarts2.add(cart);
       }
       orderService.create({
         'id': id,
@@ -63,6 +65,11 @@ class OrderProvider with ChangeNotifier {
         'updatedAt': DateTime.now(),
         'createdAt': DateTime.now(),
       });
+      await _receiptPrint(
+        shopName: shop.name,
+        carts: newCarts2,
+        createdAt: DateTime.now(),
+      );
     } catch (e) {
       error = '注文に失敗しました';
     }
