@@ -212,7 +212,7 @@ class OrderProvider with ChangeNotifier {
         children: [
           pw.Text(cart.number, style: productStyle),
           pw.Text(cart.name, style: productStyle),
-          pw.Text('${cart.deliveryQuantity}', style: productStyle),
+          pw.Text('${cart.deliveryQuantity}${cart.unit}', style: productStyle),
         ],
       ));
     }
