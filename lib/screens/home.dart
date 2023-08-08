@@ -70,6 +70,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const SizedBox(width: 24),
                     GestureDetector(
+                      onTap: () {},
+                      child: const Text(
+                        '受注商品集計',
+                        style: TextStyle(
+                          color: kWhiteColor,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 24),
+                    GestureDetector(
                       onTap: () => showBottomUpScreen(
                         context,
                         const SettingsScreen(),
