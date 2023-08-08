@@ -203,21 +203,22 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Align(
-              alignment: Alignment.centerRight,
-              child: GestureDetector(
-                onTap: () => Navigator.pop(context),
-                child: const Icon(Icons.close),
-              ),
-            ),
-            const Center(
-              child: Text(
-                '納品数量を確定して、受注してください',
-                style: TextStyle(
-                  color: kGreyColor,
-                  fontSize: 16,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(),
+                const Text(
+                  '納品数量を変更して、受注してください',
+                  style: TextStyle(
+                    color: kGreyColor,
+                    fontSize: 16,
+                  ),
                 ),
-              ),
+                GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child: const Icon(Icons.close),
+                ),
+              ],
             ),
             const SizedBox(height: 8),
             Text(
@@ -242,7 +243,7 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
             const SizedBox(height: 4),
             const Divider(height: 1, color: kGreyColor),
             SizedBox(
-              height: 300,
+              height: 350,
               child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: carts.length,
@@ -340,7 +341,6 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
                 ),
               ],
             ),
-            const SizedBox(height: 8),
           ],
         ),
       ),
