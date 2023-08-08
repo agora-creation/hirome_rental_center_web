@@ -203,6 +203,13 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Align(
+              alignment: Alignment.centerRight,
+              child: GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: const Icon(Icons.close),
+              ),
+            ),
             const Center(
               child: Text(
                 '納品数量を確定して、受注してください',
@@ -235,7 +242,7 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
             const SizedBox(height: 4),
             const Divider(height: 1, color: kGreyColor),
             SizedBox(
-              height: 350,
+              height: 300,
               child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: carts.length,
@@ -259,7 +266,7 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
               ),
             ),
             const Divider(height: 1, color: kGreyColor),
-            const SizedBox(height: 24),
+            const SizedBox(height: 16),
             const Text(
               '洗浄を追加する',
               style: TextStyle(fontSize: 16),
@@ -285,7 +292,7 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
                 );
               }).toList(),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 16),
             Row(
               children: [
                 Expanded(
@@ -333,6 +340,7 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
                 ),
               ],
             ),
+            const SizedBox(height: 8),
           ],
         ),
       ),

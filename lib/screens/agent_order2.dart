@@ -10,6 +10,7 @@ import 'package:hirome_rental_center_web/screens/agent_order3.dart';
 import 'package:hirome_rental_center_web/services/product.dart';
 import 'package:hirome_rental_center_web/widgets/custom_image.dart';
 import 'package:hirome_rental_center_web/widgets/custom_lg_button.dart';
+import 'package:hirome_rental_center_web/widgets/header_button.dart';
 import 'package:hirome_rental_center_web/widgets/link_text.dart';
 import 'package:hirome_rental_center_web/widgets/product_list.dart';
 import 'package:hirome_rental_center_web/widgets/quantity_button.dart';
@@ -51,16 +52,20 @@ class _AgentOrder2ScreenState extends State<AgentOrder2Screen> {
           style: TextStyle(color: kBlackColor),
         ),
         actions: [
-          TextButton(
-            onPressed: () => pushScreen(
-              context,
-              AgentOrder3Screen(
-                shop: widget.shop,
-                carts: orderProvider.carts,
-              ),
-            ),
-            child: const Text('注文に進む'),
-          ),
+          orderProvider.carts.isNotEmpty
+              ? HeaderButton(
+                  label: '注文に進む',
+                  labelColor: kWhiteColor,
+                  backgroundColor: kBlueColor,
+                  onPressed: () => pushScreen(
+                    context,
+                    AgentOrder3Screen(
+                      shop: widget.shop,
+                      carts: orderProvider.carts,
+                    ),
+                  ),
+                )
+              : Container(),
         ],
       ),
       body: Padding(
