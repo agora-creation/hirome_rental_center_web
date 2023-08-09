@@ -29,11 +29,13 @@ class OrderService {
   Stream<QuerySnapshot<Map<String, dynamic>>>? streamHistoryList({
     required DateTime searchStart,
     required DateTime searchEnd,
+    required String? searchShop,
   }) {
     Timestamp startAt = convertTimestamp(searchStart, false);
     Timestamp endAt = convertTimestamp(searchEnd, true);
     return FirebaseFirestore.instance
         .collection(collection)
+        .where('shopNumber', isEqualTo: searchShop)
         .where('status', whereIn: [1, 9])
         .orderBy('createdAt', descending: true)
         .startAt([endAt])

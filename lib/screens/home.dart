@@ -8,6 +8,7 @@ import 'package:hirome_rental_center_web/models/product.dart';
 import 'package:hirome_rental_center_web/providers/order.dart';
 import 'package:hirome_rental_center_web/screens/agent_order.dart';
 import 'package:hirome_rental_center_web/screens/history.dart';
+import 'package:hirome_rental_center_web/screens/order_product_total.dart';
 import 'package:hirome_rental_center_web/screens/settings.dart';
 import 'package:hirome_rental_center_web/services/order.dart';
 import 'package:hirome_rental_center_web/services/product.dart';
@@ -70,7 +71,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const SizedBox(width: 24),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () => showBottomUpScreen(
+                        context,
+                        const OrderProductTotalScreen(),
+                      ),
                       child: const Text(
                         '受注商品集計',
                         style: TextStyle(

@@ -29,9 +29,16 @@ class OrderProvider with ChangeNotifier {
     1,
   ).add(const Duration(days: -1));
 
-  void searchChange(DateTime start, DateTime end) {
+  String? searchShop;
+
+  void searchDateChange(DateTime start, DateTime end) {
     searchStart = start;
     searchEnd = end;
+    notifyListeners();
+  }
+
+  void searchShopChange(String? value) {
+    searchShop = value;
     notifyListeners();
   }
 

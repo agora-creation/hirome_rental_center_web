@@ -4,12 +4,15 @@ import 'package:hirome_rental_center_web/common/functions.dart';
 import 'package:hirome_rental_center_web/common/style.dart';
 import 'package:hirome_rental_center_web/models/cart.dart';
 import 'package:hirome_rental_center_web/models/order.dart';
+import 'package:hirome_rental_center_web/models/shop.dart';
 import 'package:hirome_rental_center_web/providers/order.dart';
 import 'package:hirome_rental_center_web/services/order.dart';
+import 'package:hirome_rental_center_web/services/shop.dart';
 import 'package:hirome_rental_center_web/widgets/cart_list.dart';
 import 'package:hirome_rental_center_web/widgets/custom_sm_button.dart';
 import 'package:hirome_rental_center_web/widgets/date_range_field.dart';
 import 'package:hirome_rental_center_web/widgets/history_list_tile.dart';
+import 'package:hirome_rental_center_web/widgets/shop_dropdown_button.dart';
 import 'package:provider/provider.dart';
 
 class HistoryScreen extends StatefulWidget {
@@ -21,6 +24,21 @@ class HistoryScreen extends StatefulWidget {
 
 class _HistoryScreenState extends State<HistoryScreen> {
   OrderService orderService = OrderService();
+  ShopService shopService = ShopService();
+  List<ShopModel> shops = [];
+
+  void _init() async {
+    List<ShopModel> tmpShops = await shopService.selectList();
+    setState(() {
+      shops = tmpShops;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _init();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,28 +64,44 @@ class _HistoryScreenState extends State<HistoryScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 400),
         child: Column(
           children: [
-            DateRangeField(
-              start: orderProvider.searchStart,
-              end: orderProvider.searchEnd,
-              onTap: () async {
-                var selected = await showDataRangePickerDialog(
-                  context,
-                  orderProvider.searchStart,
-                  orderProvider.searchEnd,
-                );
-                if (selected != null &&
-                    selected.first != null &&
-                    selected.last != null) {
-                  var diff = selected.last!.difference(selected.first!);
-                  int diffDays = diff.inDays;
-                  if (diffDays > 31) {
-                    if (!mounted) return;
-                    showMessage(context, '1ヵ月以上の範囲が選択されています', false);
-                    return;
-                  }
-                  orderProvider.searchChange(selected.first!, selected.last!);
-                }
-              },
+            Row(
+              children: [
+                Expanded(
+                  child: DateRangeField(
+                    start: orderProvider.searchStart,
+                    end: orderProvider.searchEnd,
+                    onTap: () async {
+                      var selected = await showDataRangePickerDialog(
+                        context,
+                        orderProvider.searchStart,
+                        orderProvider.searchEnd,
+                      );
+                      if (selected != null &&
+                          selected.first != null &&
+                          selected.last != null) {
+                        var diff = selected.last!.difference(selected.first!);
+                        int diffDays = diff.inDays;
+                        if (diffDays > 31) {
+                          if (!mounted) return;
+                          showMessage(context, '1ヵ月以上の範囲が選択されています', false);
+                          return;
+                        }
+                        orderProvider.searchDateChange(
+                          selected.first!,
+                          selected.last!,
+                        );
+                      }
+                    },
+                  ),
+                ),
+                ShopDropdownButton(
+                  shops: shops,
+                  value: orderProvider.searchShop,
+                  onChanged: (value) {
+                    orderProvider.searchShopChange(value);
+                  },
+                ),
+              ],
             ),
             const Divider(height: 0, color: kGreyColor),
             Expanded(
@@ -75,6 +109,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 stream: orderService.streamHistoryList(
                   searchStart: orderProvider.searchStart,
                   searchEnd: orderProvider.searchEnd,
+                  searchShop: orderProvider.searchShop,
                 ),
                 builder: (context, snapshot) {
                   List<OrderModel> orders = [];
