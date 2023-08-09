@@ -8,12 +8,13 @@ class OrderProductTotalList extends StatelessWidget {
 
   const OrderProductTotalList({
     required this.product,
-    this.total,
+    this.total = 0,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+    if (total == 0 || total == null) return Container();
     return Container(
       decoration: const BoxDecoration(
         border: Border(bottom: BorderSide(color: kGreyColor)),
@@ -53,7 +54,7 @@ class OrderProductTotalList extends StatelessWidget {
                 ),
               ),
               Text(
-                '${total ?? 0}${product.unit}',
+                '$total${product.unit}',
                 style: const TextStyle(
                   color: kBlackColor,
                   fontSize: 16,
