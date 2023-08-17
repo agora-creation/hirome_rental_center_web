@@ -267,45 +267,67 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
             Row(
               children: [
                 Expanded(
-                  child: CustomSmButton(
-                    label: 'キャンセルする',
-                    labelColor: kWhiteColor,
-                    backgroundColor: kOrangeColor,
-                    onPressed: () async {
-                      String? error = await widget.orderProvider.cancel(
-                        widget.order,
-                      );
-                      if (error != null) {
-                        if (!mounted) return;
-                        showMessage(context, error, false);
-                        return;
-                      }
-                      if (!mounted) return;
-                      showMessage(context, 'キャンセルに成功しました', true);
-                      Navigator.pop(context);
-                    },
+                  child: Column(
+                    children: [
+                      CustomSmButton(
+                        label: 'キャンセルする',
+                        labelColor: kWhiteColor,
+                        backgroundColor: kOrangeColor,
+                        onPressed: () async {
+                          String? error = await widget.orderProvider.cancel(
+                            widget.order,
+                          );
+                          if (error != null) {
+                            if (!mounted) return;
+                            showMessage(context, error, false);
+                            return;
+                          }
+                          if (!mounted) return;
+                          showMessage(context, 'キャンセルに成功しました', true);
+                          Navigator.pop(context);
+                        },
+                      ),
+                      const Text(
+                        '',
+                        style: TextStyle(
+                          color: kRedColor,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
-                  child: CustomSmButton(
-                    label: '再受注する',
-                    labelColor: kWhiteColor,
-                    backgroundColor: kBlueColor,
-                    onPressed: () async {
-                      String? error = await widget.orderProvider.reOrdered(
-                        order: widget.order,
-                        carts: carts,
-                      );
-                      if (error != null) {
-                        if (!mounted) return;
-                        showMessage(context, error, false);
-                        return;
-                      }
-                      if (!mounted) return;
-                      showMessage(context, '再受注に成功しました', true);
-                      Navigator.pop(context);
-                    },
+                  child: Column(
+                    children: [
+                      CustomSmButton(
+                        label: '再受注する',
+                        labelColor: kWhiteColor,
+                        backgroundColor: kBlueColor,
+                        onPressed: () async {
+                          String? error = await widget.orderProvider.reOrdered(
+                            order: widget.order,
+                            carts: carts,
+                          );
+                          if (error != null) {
+                            if (!mounted) return;
+                            showMessage(context, error, false);
+                            return;
+                          }
+                          if (!mounted) return;
+                          showMessage(context, '再受注に成功しました', true);
+                          Navigator.pop(context);
+                        },
+                      ),
+                      const Text(
+                        '※レシートが発行されます',
+                        style: TextStyle(
+                          color: kRedColor,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],

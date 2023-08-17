@@ -100,6 +100,13 @@ class _AgentOrder3ScreenState extends State<AgentOrder3Screen> {
                 pushReplacementScreen(context, const HomeScreen());
               },
             ),
+            const Text(
+              '※レシートが発行されます',
+              style: TextStyle(
+                color: kRedColor,
+                fontSize: 14,
+              ),
+            ),
             const SizedBox(height: 32),
             Center(
               child: LinkText(
