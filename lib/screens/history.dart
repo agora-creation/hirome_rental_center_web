@@ -266,39 +266,7 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
             const SizedBox(height: 16),
             Row(
               children: [
-                Expanded(
-                  child: Column(
-                    children: [
-                      CustomSmButton(
-                        label: 'キャンセルする',
-                        labelColor: kWhiteColor,
-                        backgroundColor: kOrangeColor,
-                        onPressed: () async {
-                          String? error = await widget.orderProvider.cancel(
-                            widget.order,
-                          );
-                          if (error != null) {
-                            if (!mounted) return;
-                            showMessage(context, error, false);
-                            return;
-                          }
-                          if (!mounted) return;
-                          showMessage(context, 'キャンセルに成功しました', true);
-                          Navigator.pop(context);
-                        },
-                      ),
-                      const Text(
-                        '',
-                        style: TextStyle(
-                          color: kRedColor,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
+                widget.order.status == 1 ? Expanded(
                   child: Column(
                     children: [
                       CustomSmButton(
@@ -329,7 +297,7 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
                       ),
                     ],
                   ),
-                ),
+                ) : Container(),
               ],
             ),
           ],
