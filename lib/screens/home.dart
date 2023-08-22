@@ -131,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         );
                       }
                       return ListView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 80),
+                        padding: const EdgeInsets.symmetric(horizontal: 100),
                         shrinkWrap: true,
                         itemCount: orders.length,
                         itemBuilder: (context, index) {
