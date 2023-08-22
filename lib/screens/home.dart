@@ -211,7 +211,7 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
     final orderProvider = Provider.of<OrderProvider>(context);
 
     return AlertDialog(
-      insetPadding: const EdgeInsets.symmetric(horizontal: 200),
+      insetPadding: const EdgeInsets.symmetric(horizontal: 100),
       content: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Column(

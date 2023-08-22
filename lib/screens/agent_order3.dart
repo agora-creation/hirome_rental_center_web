@@ -47,7 +47,7 @@ class _AgentOrder3ScreenState extends State<AgentOrder3Screen> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 600),
+        padding: const EdgeInsets.symmetric(horizontal: 400),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

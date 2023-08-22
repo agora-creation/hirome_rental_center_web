@@ -66,7 +66,7 @@ class _OrderProductTotalScreenState extends State<OrderProductTotalScreen> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 600),
+        padding: const EdgeInsets.symmetric(horizontal: 400),
         child: Column(
           children: [
             Row(

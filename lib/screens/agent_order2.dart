@@ -69,7 +69,7 @@ class _AgentOrder2ScreenState extends State<AgentOrder2Screen> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 600),
+        padding: const EdgeInsets.symmetric(horizontal: 400),
         child: Column(
           children: [
             Text(

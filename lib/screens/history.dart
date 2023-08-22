@@ -61,7 +61,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 600),
+        padding: const EdgeInsets.symmetric(horizontal: 400),
         child: Column(
           children: [
             Row(
@@ -185,7 +185,7 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      insetPadding: const EdgeInsets.symmetric(horizontal: 200),
+      insetPadding: const EdgeInsets.symmetric(horizontal: 100),
       content: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Column(
