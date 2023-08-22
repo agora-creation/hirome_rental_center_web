@@ -38,7 +38,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 400),
+        padding: const EdgeInsets.symmetric(horizontal: 600),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -121,6 +121,14 @@ class _OrderVolumeDialogState extends State<OrderVolumeDialog> {
               await setPrefsDouble('orderVolume', orderVolume);
               if (!mounted) return;
               Navigator.pop(context);
+            },
+          ),
+          const SizedBox(height: 16),
+          LinkText(
+            label: 'テスト再生',
+            labelColor: kBlueColor,
+            onTap: () async {
+              await fcmSoundPlay();
             },
           ),
         ],

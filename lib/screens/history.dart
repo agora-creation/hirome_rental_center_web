@@ -61,7 +61,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 400),
+        padding: const EdgeInsets.symmetric(horizontal: 600),
         child: Column(
           children: [
             Row(
@@ -185,7 +185,7 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      insetPadding: const EdgeInsets.all(100),
+      insetPadding: const EdgeInsets.symmetric(horizontal: 200),
       content: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Column(
@@ -266,38 +266,41 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
             const SizedBox(height: 16),
             Row(
               children: [
-                widget.order.status == 1 ? Expanded(
-                  child: Column(
-                    children: [
-                      CustomSmButton(
-                        label: '再受注する',
-                        labelColor: kWhiteColor,
-                        backgroundColor: kBlueColor,
-                        onPressed: () async {
-                          String? error = await widget.orderProvider.reOrdered(
-                            order: widget.order,
-                            carts: carts,
-                          );
-                          if (error != null) {
-                            if (!mounted) return;
-                            showMessage(context, error, false);
-                            return;
-                          }
-                          if (!mounted) return;
-                          showMessage(context, '再受注に成功しました', true);
-                          Navigator.pop(context);
-                        },
-                      ),
-                      const Text(
-                        '※レシートが発行されます',
-                        style: TextStyle(
-                          color: kRedColor,
-                          fontSize: 14,
+                widget.order.status == 1
+                    ? Expanded(
+                        child: Column(
+                          children: [
+                            CustomSmButton(
+                              label: '再受注する',
+                              labelColor: kWhiteColor,
+                              backgroundColor: kBlueColor,
+                              onPressed: () async {
+                                String? error =
+                                    await widget.orderProvider.reOrdered(
+                                  order: widget.order,
+                                  carts: carts,
+                                );
+                                if (error != null) {
+                                  if (!mounted) return;
+                                  showMessage(context, error, false);
+                                  return;
+                                }
+                                if (!mounted) return;
+                                showMessage(context, '再受注に成功しました', true);
+                                Navigator.pop(context);
+                              },
+                            ),
+                            const Text(
+                              '※レシートが発行されます',
+                              style: TextStyle(
+                                color: kRedColor,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
-                  ),
-                ) : Container(),
+                      )
+                    : Container(),
               ],
             ),
           ],

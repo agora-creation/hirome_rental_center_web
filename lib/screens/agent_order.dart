@@ -40,7 +40,7 @@ class _AgentOrderScreenState extends State<AgentOrderScreen> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 400),
+        padding: const EdgeInsets.symmetric(horizontal: 600),
         child: Column(
           children: [
             const Text(

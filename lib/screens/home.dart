@@ -131,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         );
                       }
                       return ListView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 40),
+                        padding: const EdgeInsets.symmetric(horizontal: 80),
                         shrinkWrap: true,
                         itemCount: orders.length,
                         itemBuilder: (context, index) {
@@ -211,7 +211,7 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
     final orderProvider = Provider.of<OrderProvider>(context);
 
     return AlertDialog(
-      insetPadding: const EdgeInsets.all(100),
+      insetPadding: const EdgeInsets.symmetric(horizontal: 200),
       content: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Column(

@@ -43,7 +43,7 @@ class _AgentOrder2ScreenState extends State<AgentOrder2Screen> {
           icon: const Icon(
             Icons.chevron_left,
             color: kBlackColor,
-            size: 32.0,
+            size: 32,
           ),
           onPressed: () => Navigator.pop(context),
         ),
@@ -69,7 +69,7 @@ class _AgentOrder2ScreenState extends State<AgentOrder2Screen> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 400),
+        padding: const EdgeInsets.symmetric(horizontal: 600),
         child: Column(
           children: [
             Text(
