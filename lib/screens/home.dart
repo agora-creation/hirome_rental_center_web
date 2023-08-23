@@ -16,7 +16,8 @@ import 'package:hirome_rental_center_web/widgets/animation_background.dart';
 import 'package:hirome_rental_center_web/widgets/cart_list.dart';
 import 'package:hirome_rental_center_web/widgets/cart_wash_list.dart';
 import 'package:hirome_rental_center_web/widgets/custom_header.dart';
-import 'package:hirome_rental_center_web/widgets/custom_sm_button.dart';
+import 'package:hirome_rental_center_web/widgets/custom_lg_button.dart';
+import 'package:hirome_rental_center_web/widgets/link_text.dart';
 import 'package:hirome_rental_center_web/widgets/order_list.dart';
 import 'package:provider/provider.dart';
 
@@ -51,11 +52,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         '代理注文',
                         style: TextStyle(
                           color: kWhiteColor,
-                          fontSize: 16,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                    const SizedBox(width: 24),
+                    const SizedBox(width: 32),
                     GestureDetector(
                       onTap: () => showBottomUpScreen(
                         context,
@@ -65,11 +67,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         '受注履歴',
                         style: TextStyle(
                           color: kWhiteColor,
-                          fontSize: 16,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                    const SizedBox(width: 24),
+                    const SizedBox(width: 32),
                     GestureDetector(
                       onTap: () => showBottomUpScreen(
                         context,
@@ -79,11 +82,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         '受注商品集計',
                         style: TextStyle(
                           color: kWhiteColor,
-                          fontSize: 16,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                    const SizedBox(width: 24),
+                    const SizedBox(width: 32),
                     GestureDetector(
                       onTap: () => showBottomUpScreen(
                         context,
@@ -93,7 +97,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         '設定',
                         style: TextStyle(
                           color: kWhiteColor,
-                          fontSize: 16,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
@@ -101,13 +106,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 const SizedBox(height: 8),
                 const Text(
-                  '以下の注文に対応してください',
+                  '以下の注文をタップしてください',
                   style: TextStyle(
                     color: kWhiteColor,
-                    fontSize: 18,
+                    fontSize: 24,
                   ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 16),
                 Expanded(
                   child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                     stream: orderService.streamList(),
@@ -125,13 +130,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             '未処理の注文がありません',
                             style: TextStyle(
                               color: kWhiteColor,
-                              fontSize: 18,
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         );
                       }
                       return ListView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 100),
+                        padding: const EdgeInsets.symmetric(horizontal: 200),
                         shrinkWrap: true,
                         itemCount: orders.length,
                         itemBuilder: (context, index) {
@@ -211,7 +217,7 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
     final orderProvider = Provider.of<OrderProvider>(context);
 
     return AlertDialog(
-      insetPadding: const EdgeInsets.symmetric(horizontal: 100),
+      insetPadding: const EdgeInsets.symmetric(horizontal: 200),
       content: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Column(
@@ -226,7 +232,7 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
                   '納品数量を変更して、受注してください',
                   style: TextStyle(
                     color: kGreyColor,
-                    fontSize: 16,
+                    fontSize: 20,
                   ),
                 ),
                 GestureDetector(
@@ -240,20 +246,20 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
               '注文日時 : ${dateText('yyyy/MM/dd HH:mm', widget.order.createdAt)}',
               style: const TextStyle(
                 color: kGreyColor,
-                fontSize: 16,
+                fontSize: 18,
               ),
             ),
             Text(
               '注文された店舗 : ${widget.order.shopName}',
               style: const TextStyle(
                 color: kGreyColor,
-                fontSize: 16,
+                fontSize: 18,
               ),
             ),
             const SizedBox(height: 8),
             const Text(
               '注文された商品',
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 4),
             const Divider(height: 1, color: kGreyColor),
@@ -284,8 +290,8 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
             const Divider(height: 1, color: kGreyColor),
             const SizedBox(height: 16),
             const Text(
-              '洗浄を追加する',
-              style: TextStyle(fontSize: 16),
+              '▼ 洗浄を追加する',
+              style: TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 4),
             Row(
@@ -308,73 +314,61 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
                 );
               }).toList(),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 32),
+            const Center(
+              child: Text(
+                '※レシートが発行されます',
+                style: TextStyle(
+                  color: kRedColor,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            Center(
+              child: SizedBox(
+                width: 500,
+                child: CustomLgButton(
+                  label: '上記内容で受注する',
+                  labelColor: kWhiteColor,
+                  backgroundColor: kBlueColor,
+                  onPressed: () async {
+                    String? error = await orderProvider.ordered(
+                      order: widget.order,
+                      carts: carts,
+                      cartsWash: cartsWash,
+                    );
+                    if (error != null) {
+                      if (!mounted) return;
+                      showMessage(context, error, false);
+                      return;
+                    }
+                    if (!mounted) return;
+                    showMessage(context, '受注に成功しました', true);
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+            ),
+            const SizedBox(height: 32),
             Row(
               children: [
-                Expanded(
-                  child: Column(
-                    children: [
-                      CustomSmButton(
-                        label: 'キャンセルする',
-                        labelColor: kWhiteColor,
-                        backgroundColor: kOrangeColor,
-                        onPressed: () async {
-                          String? error = await orderProvider.cancel(
-                            widget.order,
-                          );
-                          if (error != null) {
-                            if (!mounted) return;
-                            showMessage(context, error, false);
-                            return;
-                          }
-                          if (!mounted) return;
-                          showMessage(context, 'キャンセルに成功しました', true);
-                          Navigator.pop(context);
-                        },
-                      ),
-                      const Text(
-                        '',
-                        style: TextStyle(
-                          color: kRedColor,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    children: [
-                      CustomSmButton(
-                        label: '受注する',
-                        labelColor: kWhiteColor,
-                        backgroundColor: kBlueColor,
-                        onPressed: () async {
-                          String? error = await orderProvider.ordered(
-                            order: widget.order,
-                            carts: carts,
-                            cartsWash: cartsWash,
-                          );
-                          if (error != null) {
-                            if (!mounted) return;
-                            showMessage(context, error, false);
-                            return;
-                          }
-                          if (!mounted) return;
-                          showMessage(context, '受注に成功しました', true);
-                          Navigator.pop(context);
-                        },
-                      ),
-                      const Text(
-                        '※レシートが発行されます',
-                        style: TextStyle(
-                          color: kRedColor,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ],
-                  ),
+                LinkText(
+                  label: 'この注文をキャンセル',
+                  labelColor: kRedColor,
+                  onTap: () async {
+                    String? error = await orderProvider.cancel(
+                      widget.order,
+                    );
+                    if (error != null) {
+                      if (!mounted) return;
+                      showMessage(context, error, false);
+                      return;
+                    }
+                    if (!mounted) return;
+                    showMessage(context, 'キャンセルに成功しました', true);
+                    Navigator.pop(context);
+                  },
                 ),
               ],
             ),

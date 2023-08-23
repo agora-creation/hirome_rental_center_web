@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
           GestureDetector(
             onTap: () => FocusScope.of(context).unfocus(),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 320),
+              padding: const EdgeInsets.symmetric(horizontal: 600),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [

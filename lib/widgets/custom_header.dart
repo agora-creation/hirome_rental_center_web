@@ -15,8 +15,8 @@ class CustomHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: 8,
-        horizontal: 16,
+        vertical: 16,
+        horizontal: 32,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -25,7 +25,7 @@ class CustomHeader extends StatelessWidget {
             title,
             style: const TextStyle(
               color: kWhiteColor,
-              fontSize: 18,
+              fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
           ),
