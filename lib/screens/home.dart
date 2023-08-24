@@ -283,6 +283,7 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
                         cart.deliveryQuantity += 1;
                       });
                     },
+                    onQuantity: () {},
                   );
                 },
               ),

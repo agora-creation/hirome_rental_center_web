@@ -6,11 +6,13 @@ class CartWashList extends StatelessWidget {
   final CartModel cart;
   final Function()? onRemoved;
   final Function()? onAdded;
+  final Function()? onQuantity;
 
   const CartWashList({
     required this.cart,
     this.onRemoved,
     this.onAdded,
+    this.onQuantity,
     super.key,
   });
 
@@ -30,14 +32,14 @@ class CartWashList extends StatelessWidget {
                   '商品番号 : ${cart.number}',
                   style: const TextStyle(
                     color: kGreyColor,
-                    fontSize: 14,
+                    fontSize: 16,
                   ),
                 ),
                 Text(
                   cart.name,
                   style: const TextStyle(
                     color: kBlackColor,
-                    fontSize: 18,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -65,13 +67,16 @@ class CartWashList extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Text(
-                        '${cart.deliveryQuantity}${cart.unit}',
-                        style: const TextStyle(
-                          color: kBlueColor,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: GestureDetector(
+                        onTap: onQuantity,
+                        child: Text(
+                          '${cart.deliveryQuantity}${cart.unit}',
+                          style: const TextStyle(
+                            color: kBlueColor,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),

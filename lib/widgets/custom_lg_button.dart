@@ -23,7 +23,7 @@ class CustomLgButton extends StatelessWidget {
         style: TextButton.styleFrom(
           backgroundColor: backgroundColor,
           shape: const StadiumBorder(),
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(20),
         ),
         child: Text(
           label,
