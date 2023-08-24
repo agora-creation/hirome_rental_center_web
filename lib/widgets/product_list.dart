@@ -47,13 +47,13 @@ class ProductList extends StatelessWidget {
                             '商品番号 : ${product.number}',
                             style: const TextStyle(
                               color: kGreyColor,
-                              fontSize: 12,
+                              fontSize: 14,
                             ),
                           ),
                           Text(
                             product.name,
                             style: const TextStyle(
-                              fontSize: 18,
+                              fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -77,7 +77,7 @@ class ProductList extends StatelessWidget {
                         '${contain.first.requestQuantity}${contain.first.unit} 選択中',
                         style: const TextStyle(
                           color: kWhiteColor,
-                          fontSize: 18,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

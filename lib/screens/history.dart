@@ -9,7 +9,7 @@ import 'package:hirome_rental_center_web/providers/order.dart';
 import 'package:hirome_rental_center_web/services/order.dart';
 import 'package:hirome_rental_center_web/services/shop.dart';
 import 'package:hirome_rental_center_web/widgets/cart_list.dart';
-import 'package:hirome_rental_center_web/widgets/custom_sm_button.dart';
+import 'package:hirome_rental_center_web/widgets/custom_lg_button.dart';
 import 'package:hirome_rental_center_web/widgets/date_range_field.dart';
 import 'package:hirome_rental_center_web/widgets/history_list_tile.dart';
 import 'package:hirome_rental_center_web/widgets/shop_dropdown_button.dart';
@@ -51,7 +51,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
         backgroundColor: kWhiteColor,
         title: const Text(
           '食器センター : 受注履歴',
-          style: TextStyle(color: kBlackColor),
+          style: TextStyle(
+            color: kBlackColor,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         actions: [
           IconButton(
@@ -61,7 +64,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 400),
+        padding: const EdgeInsets.symmetric(horizontal: 600),
         child: Column(
           children: [
             Row(
@@ -185,7 +188,7 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      insetPadding: const EdgeInsets.symmetric(horizontal: 100),
+      insetPadding: const EdgeInsets.symmetric(horizontal: 200),
       content: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Column(
@@ -200,7 +203,7 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
                   '納品数量を変更して、再受注してください',
                   style: TextStyle(
                     color: kGreyColor,
-                    fontSize: 16,
+                    fontSize: 20,
                   ),
                 ),
                 GestureDetector(
@@ -214,27 +217,27 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
               '注文日時 : ${dateText('yyyy/MM/dd HH:mm', widget.order.createdAt)}',
               style: const TextStyle(
                 color: kGreyColor,
-                fontSize: 16,
+                fontSize: 18,
               ),
             ),
             Text(
               '注文された店舗 : ${widget.order.shopName}',
               style: const TextStyle(
                 color: kGreyColor,
-                fontSize: 16,
+                fontSize: 18,
               ),
             ),
             Text(
               'ステータス : ${widget.order.statusText()}',
               style: const TextStyle(
                 color: kGreyColor,
-                fontSize: 16,
+                fontSize: 18,
               ),
             ),
             const SizedBox(height: 8),
             const Text(
               '注文された商品',
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 4),
             const Divider(height: 1, color: kGreyColor),
@@ -263,45 +266,39 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
               ),
             ),
             const Divider(height: 1, color: kGreyColor),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                widget.order.status == 1
-                    ? Expanded(
-                        child: Column(
-                          children: [
-                            CustomSmButton(
-                              label: '再受注する',
-                              labelColor: kWhiteColor,
-                              backgroundColor: kBlueColor,
-                              onPressed: () async {
-                                String? error =
-                                    await widget.orderProvider.reOrdered(
-                                  order: widget.order,
-                                  carts: carts,
-                                );
-                                if (error != null) {
-                                  if (!mounted) return;
-                                  showMessage(context, error, false);
-                                  return;
-                                }
-                                if (!mounted) return;
-                                showMessage(context, '再受注に成功しました', true);
-                                Navigator.pop(context);
-                              },
-                            ),
-                            const Text(
-                              '※レシートが発行されます',
-                              style: TextStyle(
-                                color: kRedColor,
-                                fontSize: 14,
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    : Container(),
-              ],
+            const SizedBox(height: 32),
+            Center(
+              child: SizedBox(
+                width: 500,
+                child: CustomLgButton(
+                  label: '上記内容で再受注する',
+                  labelColor: kWhiteColor,
+                  backgroundColor: kBlueColor,
+                  onPressed: () async {
+                    String? error = await widget.orderProvider.reOrdered(
+                      order: widget.order,
+                      carts: carts,
+                    );
+                    if (error != null) {
+                      if (!mounted) return;
+                      showMessage(context, error, false);
+                      return;
+                    }
+                    if (!mounted) return;
+                    showMessage(context, '再受注に成功しました', true);
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+            ),
+            const Center(
+              child: Text(
+                '※レシートが発行されます',
+                style: TextStyle(
+                  color: kRedColor,
+                  fontSize: 16,
+                ),
+              ),
             ),
           ],
         ),

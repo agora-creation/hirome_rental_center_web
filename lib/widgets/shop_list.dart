@@ -32,13 +32,13 @@ class ShopList extends StatelessWidget {
                     '店舗番号 : ${shop.number}',
                     style: const TextStyle(
                       color: kGreyColor,
-                      fontSize: 12,
+                      fontSize: 14,
                     ),
                   ),
                   Text(
                     shop.name,
                     style: const TextStyle(
-                      fontSize: 18,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

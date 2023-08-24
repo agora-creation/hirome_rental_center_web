@@ -30,7 +30,10 @@ class _AgentOrderScreenState extends State<AgentOrderScreen> {
         backgroundColor: kWhiteColor,
         title: const Text(
           '食器センター : 代理注文 - 店舗選択',
-          style: TextStyle(color: kBlackColor),
+          style: TextStyle(
+            color: kBlackColor,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         actions: [
           IconButton(
@@ -40,12 +43,12 @@ class _AgentOrderScreenState extends State<AgentOrderScreen> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 400),
+        padding: const EdgeInsets.symmetric(horizontal: 600),
         child: Column(
           children: [
             const Text(
-              '注文する店舗を選択してください',
-              style: TextStyle(fontSize: 16),
+              '注文する店舗をタップしてください',
+              style: TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 16),
             const Divider(height: 0, color: kGreyColor),

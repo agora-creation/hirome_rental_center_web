@@ -37,17 +37,19 @@ class _AgentOrder3ScreenState extends State<AgentOrder3Screen> {
           icon: const Icon(
             Icons.chevron_left,
             color: kBlackColor,
-            size: 32,
           ),
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
           '食器センター : 代理注文 - 注文確認',
-          style: TextStyle(color: kBlackColor),
+          style: TextStyle(
+            color: kBlackColor,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 400),
+        padding: const EdgeInsets.symmetric(horizontal: 600),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -55,7 +57,7 @@ class _AgentOrder3ScreenState extends State<AgentOrder3Screen> {
               '注文の内容を確認してください\n間違いなければ『注文する』ボタンを押してください',
               style: TextStyle(
                 color: kRedColor,
-                fontSize: 16,
+                fontSize: 18,
               ),
             ),
             const SizedBox(height: 16),

@@ -43,13 +43,15 @@ class _AgentOrder2ScreenState extends State<AgentOrder2Screen> {
           icon: const Icon(
             Icons.chevron_left,
             color: kBlackColor,
-            size: 32,
           ),
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
           '食器センター : 代理注文 - 商品選択',
-          style: TextStyle(color: kBlackColor),
+          style: TextStyle(
+            color: kBlackColor,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         actions: [
           orderProvider.carts.isNotEmpty
@@ -69,7 +71,7 @@ class _AgentOrder2ScreenState extends State<AgentOrder2Screen> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 400),
+        padding: const EdgeInsets.symmetric(horizontal: 600),
         child: Column(
           children: [
             Text(
@@ -79,7 +81,7 @@ class _AgentOrder2ScreenState extends State<AgentOrder2Screen> {
             const SizedBox(height: 8),
             const Text(
               '注文する商品を選択してください',
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 8),
             const Divider(height: 1, color: kGreyColor),
@@ -183,14 +185,14 @@ class _ProductDetailsDialogState extends State<ProductDetailsDialog> {
             '商品番号 : ${widget.product.number}',
             style: const TextStyle(
               color: kGreyColor,
-              fontSize: 12,
+              fontSize: 14,
             ),
           ),
           Text(
             widget.product.name,
             style: const TextStyle(
               color: kBlackColor,
-              fontSize: 20,
+              fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
           ),

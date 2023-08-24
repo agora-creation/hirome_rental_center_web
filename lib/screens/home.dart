@@ -315,16 +315,6 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
               }).toList(),
             ),
             const SizedBox(height: 32),
-            const Center(
-              child: Text(
-                '※レシートが発行されます',
-                style: TextStyle(
-                  color: kRedColor,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
             Center(
               child: SizedBox(
                 width: 500,
@@ -350,8 +340,18 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
                 ),
               ),
             ),
+            const Center(
+              child: Text(
+                '※レシートが発行されます',
+                style: TextStyle(
+                  color: kRedColor,
+                  fontSize: 16,
+                ),
+              ),
+            ),
             const SizedBox(height: 32),
             Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 LinkText(
                   label: 'この注文をキャンセル',
