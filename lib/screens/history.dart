@@ -256,9 +256,24 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
                         cart.deliveryQuantity -= 1;
                       });
                     },
+                    onRemoved10: () {
+                      if (cart.deliveryQuantity == 0) return;
+                      setState(() {
+                        if (cart.deliveryQuantity <= 10) {
+                          cart.deliveryQuantity = 0;
+                        } else {
+                          cart.deliveryQuantity -= 10;
+                        }
+                      });
+                    },
                     onAdded: () {
                       setState(() {
                         cart.deliveryQuantity += 1;
+                      });
+                    },
+                    onAdded10: () {
+                      setState(() {
+                        cart.deliveryQuantity += 10;
                       });
                     },
                   );

@@ -5,14 +5,16 @@ import 'package:hirome_rental_center_web/models/cart.dart';
 class CartList extends StatelessWidget {
   final CartModel cart;
   final Function()? onRemoved;
+  final Function()? onRemoved10;
   final Function()? onAdded;
-  final Function()? onQuantity;
+  final Function()? onAdded10;
 
   const CartList({
     required this.cart,
     this.onRemoved,
+    this.onRemoved10,
     this.onAdded,
-    this.onQuantity,
+    this.onAdded10,
     super.key,
   });
 
@@ -80,7 +82,7 @@ class CartList extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(4),
+                    padding: const EdgeInsets.all(2),
                     child: Container(
                       decoration: BoxDecoration(
                         border: Border.all(color: kBlueColor),
@@ -101,16 +103,13 @@ class CartList extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 24),
-                            child: GestureDetector(
-                              onTap: onQuantity,
-                              child: Text(
-                                '${cart.deliveryQuantity}${cart.unit}',
-                                style: const TextStyle(
-                                  color: kBlueColor,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Text(
+                              '${cart.deliveryQuantity}${cart.unit}',
+                              style: const TextStyle(
+                                color: kBlueColor,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
@@ -127,6 +126,55 @@ class CartList extends StatelessWidget {
                           ),
                         ],
                       ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(2),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButton(
+                          onPressed: onRemoved10,
+                          style: TextButton.styleFrom(
+                            shape: const StadiumBorder(
+                              side: BorderSide(color: kBlueColor),
+                            ),
+                          ),
+                          child: const Text(
+                            '－10',
+                            style: TextStyle(
+                              color: kBlueColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Text(
+                            '${cart.deliveryQuantity}${cart.unit}',
+                            style: const TextStyle(
+                              color: Colors.transparent,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: onAdded10,
+                          style: TextButton.styleFrom(
+                            shape: const StadiumBorder(
+                              side: BorderSide(color: kBlueColor),
+                            ),
+                          ),
+                          child: const Text(
+                            '＋10',
+                            style: TextStyle(
+                              color: kBlueColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

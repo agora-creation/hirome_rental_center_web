@@ -206,9 +206,24 @@ class _ProductDetailsDialogState extends State<ProductDetailsDialog> {
                 requestQuantity -= 1;
               });
             },
+            onRemoved10: () {
+              if (requestQuantity == 1) return;
+              setState(() {
+                if (requestQuantity <= 10) {
+                  requestQuantity = 1;
+                } else {
+                  requestQuantity -= 10;
+                }
+              });
+            },
             onAdded: () {
               setState(() {
                 requestQuantity += 1;
+              });
+            },
+            onAdded10: () {
+              setState(() {
+                requestQuantity += 10;
               });
             },
           ),
