@@ -139,6 +139,8 @@ Future<List<DateTime?>?> showDataRangePickerDialog(
     context: context,
     config: CalendarDatePicker2WithActionButtonsConfig(
       calendarType: CalendarDatePicker2Type.range,
+      firstDate: kFirstDate,
+      lastDate: kLastDate,
     ),
     dialogSize: const Size(325, 400),
     value: [startValue, endValue],
