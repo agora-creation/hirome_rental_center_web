@@ -27,10 +27,11 @@ dependencies:
   badges: ^3.1.1
   printing: ^5.11.0
   assets_audio_player: ^3.0.6
+  touchable: ^1.0.2
   firebase_core: ^2.14.0
   firebase_auth: ^4.6.3
   cloud_firestore: ^4.8.1
-  firebase_messaging: ^14.6.5
+  firebase_messaging: ^14.6.9
 
 dependency_overrides:
   modal_bottom_sheet: ^3.0.0-pre

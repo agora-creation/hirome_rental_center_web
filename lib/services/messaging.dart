@@ -5,7 +5,12 @@ class MessagingService {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
 
   Future<String> getToken() async {
-    String token = (await messaging.getToken(vapidKey: kFcmKey)).toString();
-    return token;
+    String ret = '';
+    try {
+      ret = await messaging.getToken(vapidKey: kFcmKey) ?? '';
+    } catch (e) {
+      print(e.toString());
+    }
+    return ret;
   }
 }

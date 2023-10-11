@@ -83,3 +83,6 @@ DateTime kLastDate = DateTime(
   DateTime.now().month + 1,
   1,
 ).subtract(const Duration(days: 1));
+
+const double kFloorWidth = 1000;
+const double kFloorHeight = 600;
