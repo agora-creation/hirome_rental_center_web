@@ -8,6 +8,7 @@ class ShopModel {
   String _number = '';
   String _name = '';
   String _invoiceName = '';
+  String _tenantNumber = '';
   List<String> favorites = [];
   int _priority = 0;
   int _authority = 0;
@@ -17,6 +18,7 @@ class ShopModel {
   String get number => _number;
   String get name => _name;
   String get invoiceName => _invoiceName;
+  String get tenantNumber => _tenantNumber;
   int get priority => _priority;
   int get authority => _authority;
   DateTime get createdAt => _createdAt;
@@ -27,6 +29,7 @@ class ShopModel {
     _number = map['number'] ?? '';
     _name = map['name'] ?? '';
     _invoiceName = map['invoiceName'] ?? '';
+    _tenantNumber = map['tenantNumber'] ?? '';
     favorites = _convertFavorites(map['favorites']);
     _priority = map['priority'] ?? 0;
     _authority = map['authority'] ?? 0;

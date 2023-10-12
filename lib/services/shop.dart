@@ -12,6 +12,20 @@ class ShopService {
         .snapshots();
   }
 
+  Future<ShopModel?> selectTenant(String tenantNumber) async {
+    ShopModel? ret;
+    await firestore
+        .collection(collection)
+        .where('tenantNumber', isEqualTo: tenantNumber)
+        .get()
+        .then((value) {
+      if (value.docs.isNotEmpty) {
+        ret = ShopModel.fromSnapshot(value.docs.first);
+      }
+    });
+    return ret;
+  }
+
   Future<List<ShopModel>> selectList() async {
     List<ShopModel> ret = [];
     await firestore

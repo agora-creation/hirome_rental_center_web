@@ -19,6 +19,19 @@ class AgentOrderScreen extends StatefulWidget {
 
 class _AgentOrderScreenState extends State<AgentOrderScreen> {
   ShopService shopService = ShopService();
+  Future getShopNext(String tenantNumber) async {
+    ShopModel? tenantShop = await shopService.selectTenant(tenantNumber);
+    if (tenantShop != null) {
+      if (!mounted) return;
+      pushScreen(
+        context,
+        AgentOrder2Screen(shop: tenantShop),
+      );
+    } else {
+      if (!mounted) return;
+      showMessage(context, 'テナント番号が店舗に設定されておりません', false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +72,10 @@ class _AgentOrderScreenState extends State<AgentOrderScreen> {
               ],
               builder: (context) {
                 return CustomPaint(
-                  painter: FloorMapPaint(context),
+                  painter: FloorMapPaint(
+                    context: context,
+                    getShopNext: getShopNext,
+                  ),
                 );
               },
             ),
@@ -113,8 +129,12 @@ class _AgentOrderScreenState extends State<AgentOrderScreen> {
 
 class FloorMapPaint extends CustomPainter {
   final BuildContext context;
+  final Function(String) getShopNext;
 
-  FloorMapPaint(this.context);
+  FloorMapPaint({
+    required this.context,
+    required this.getShopNext,
+  });
 
   void squarePaint(
     TouchyCanvas touchyCanvas,
@@ -177,9 +197,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 10,
       width: 30,
       height: 30,
-      onTapDown: (tapDetails) {
-        showMessage(context, tapDetails.toString(), true);
-      },
+      onTapDown: (_) => getShopNext('65'),
     );
     //階段
     squarePaint(
@@ -192,7 +210,6 @@ class FloorMapPaint extends CustomPainter {
       posTop: 10,
       width: 30,
       height: 50,
-      onTapDown: (tapDetails) {},
     );
     //47
     squarePaint(
@@ -205,7 +222,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 10,
       width: 40,
       height: 60,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('47'),
     );
     //55
     squarePaint(
@@ -218,7 +235,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 10,
       width: 30,
       height: 60,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('55'),
     );
     //56
     squarePaint(
@@ -231,7 +248,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 10,
       width: 30,
       height: 60,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('56'),
     );
     //57
     squarePaint(
@@ -244,7 +261,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 10,
       width: 30,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('57'),
     );
     //58
     squarePaint(
@@ -257,7 +274,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 10,
       width: 50,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('58'),
     );
     //60
     squarePaint(
@@ -270,7 +287,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 40,
       width: 40,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('60'),
     );
     //59
     squarePaint(
@@ -283,7 +300,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 40,
       width: 40,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('59'),
     );
     //4
     squarePaint(
@@ -296,7 +313,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 10,
       width: 30,
       height: 60,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('4'),
     );
     //3
     squarePaint(
@@ -309,7 +326,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 10,
       width: 30,
       height: 60,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('3'),
     );
     //2
     squarePaint(
@@ -322,7 +339,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 10,
       width: 50,
       height: 60,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('2'),
     );
     //1
     squarePaint(
@@ -335,7 +352,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 10,
       width: 60,
       height: 60,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('1'),
     );
     //階段
     squarePaint(
@@ -348,7 +365,6 @@ class FloorMapPaint extends CustomPainter {
       posTop: 10,
       width: 40,
       height: 30,
-      onTapDown: (tapDetails) {},
     );
     //EV
     squarePaint(
@@ -361,7 +377,6 @@ class FloorMapPaint extends CustomPainter {
       posTop: 40,
       width: 40,
       height: 30,
-      onTapDown: (tapDetails) {},
     );
     //ATM
     squarePaint(
@@ -374,7 +389,6 @@ class FloorMapPaint extends CustomPainter {
       posTop: 10,
       width: 30,
       height: 60,
-      onTapDown: (tapDetails) {},
     );
     //64
     squarePaint(
@@ -387,7 +401,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 10,
       width: 40,
       height: 50,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('64'),
     );
     //7
     squarePaint(
@@ -400,7 +414,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 120,
       width: 40,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('7'),
     );
     //8
     squarePaint(
@@ -413,7 +427,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 150,
       width: 40,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('8'),
     );
     //9
     squarePaint(
@@ -426,7 +440,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 180,
       width: 40,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('9'),
     );
     //10
     squarePaint(
@@ -439,7 +453,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 210,
       width: 40,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('10'),
     );
     //11
     squarePaint(
@@ -452,7 +466,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 240,
       width: 40,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('11'),
     );
     //12
     squarePaint(
@@ -465,7 +479,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 270,
       width: 40,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('12'),
     );
     //63
     squarePaint(
@@ -478,7 +492,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 150,
       width: 30,
       height: 60,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('63'),
     );
     //70
     squarePaint(
@@ -491,7 +505,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 80,
       width: 40,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('70'),
     );
     //69
     squarePaint(
@@ -504,7 +518,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 110,
       width: 40,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('69'),
     );
     //68
     squarePaint(
@@ -517,7 +531,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 140,
       width: 40,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('68'),
     );
     //45
     squarePaint(
@@ -530,7 +544,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 200,
       width: 40,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('45'),
     );
     //37
     squarePaint(
@@ -543,7 +557,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 230,
       width: 40,
       height: 60,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('37'),
     );
     //階段
     squarePaint(
@@ -556,7 +570,6 @@ class FloorMapPaint extends CustomPainter {
       posTop: 320,
       width: 30,
       height: 50,
-      onTapDown: (tapDetails) {},
     );
     //38
     squarePaint(
@@ -569,7 +582,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 320,
       width: 30,
       height: 50,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('38'),
     );
     //39
     squarePaint(
@@ -582,7 +595,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 320,
       width: 30,
       height: 50,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('39'),
     );
     //40
     squarePaint(
@@ -595,7 +608,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 320,
       width: 40,
       height: 50,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('40'),
     );
     //52
     squarePaint(
@@ -608,7 +621,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 330,
       width: 30,
       height: 40,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('52'),
     );
     //案内所
     squarePaint(
@@ -621,7 +634,6 @@ class FloorMapPaint extends CustomPainter {
       posTop: 330,
       width: 40,
       height: 40,
-      onTapDown: (tapDetails) {},
     );
     //43
     squarePaint(
@@ -634,7 +646,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 320,
       width: 60,
       height: 50,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('43'),
     );
     //21
     squarePaint(
@@ -647,7 +659,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 320,
       width: 60,
       height: 80,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('21'),
     );
     //16
     squarePaint(
@@ -660,7 +672,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 320,
       width: 50,
       height: 50,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('16'),
     );
     //15
     squarePaint(
@@ -673,7 +685,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 320,
       width: 50,
       height: 50,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('15'),
     );
     //51
     squarePaint(
@@ -686,7 +698,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 110,
       width: 60,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('51'),
     );
     //67
     squarePaint(
@@ -699,7 +711,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 140,
       width: 30,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('67'),
     );
     //66
     squarePaint(
@@ -712,7 +724,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 140,
       width: 30,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('66'),
     );
     //46
     squarePaint(
@@ -725,7 +737,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 200,
       width: 30,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('46'),
     );
     //34
     squarePaint(
@@ -738,7 +750,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 200,
       width: 30,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('34'),
     );
     //35
     squarePaint(
@@ -751,7 +763,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 230,
       width: 40,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('35'),
     );
     //36
     squarePaint(
@@ -764,7 +776,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 260,
       width: 40,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('36'),
     );
     //42
     squarePaint(
@@ -777,7 +789,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 260,
       width: 30,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('42'),
     );
     //50
     squarePaint(
@@ -790,7 +802,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 110,
       width: 30,
       height: 90,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('50'),
     );
     //33
     squarePaint(
@@ -803,7 +815,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 200,
       width: 30,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('33'),
     );
     //29
     squarePaint(
@@ -816,7 +828,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 110,
       width: 30,
       height: 50,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('29'),
     );
     //31
     squarePaint(
@@ -829,7 +841,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 160,
       width: 30,
       height: 40,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('31'),
     );
     //32
     squarePaint(
@@ -842,7 +854,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 200,
       width: 30,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('32'),
     );
     //27
     squarePaint(
@@ -855,7 +867,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 110,
       width: 30,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('27'),
     );
     //61
     squarePaint(
@@ -868,7 +880,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 140,
       width: 30,
       height: 60,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('61'),
     );
     //28
     squarePaint(
@@ -881,7 +893,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 200,
       width: 30,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('28'),
     );
     //44
     squarePaint(
@@ -894,7 +906,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 230,
       width: 30,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('44'),
     );
     //22
     squarePaint(
@@ -907,7 +919,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 110,
       width: 30,
       height: 60,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('22'),
     );
     //24
     squarePaint(
@@ -920,7 +932,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 170,
       width: 30,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('24'),
     );
     //25
     squarePaint(
@@ -933,7 +945,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 200,
       width: 30,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('25'),
     );
     //26
     squarePaint(
@@ -946,7 +958,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 230,
       width: 30,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('26'),
     );
     //17
     squarePaint(
@@ -959,7 +971,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 110,
       width: 30,
       height: 60,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('17'),
     );
     //18
     squarePaint(
@@ -972,7 +984,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 170,
       width: 30,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('18'),
     );
     //19
     squarePaint(
@@ -985,7 +997,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 200,
       width: 30,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('19'),
     );
     //20
     squarePaint(
@@ -998,7 +1010,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 230,
       width: 30,
       height: 30,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('20'),
     );
     //6
     squarePaint(
@@ -1011,7 +1023,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 110,
       width: 50,
       height: 40,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('6'),
     );
     //23
     squarePaint(
@@ -1024,7 +1036,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 110,
       width: 30,
       height: 40,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('23'),
     );
     //5
     squarePaint(
@@ -1037,7 +1049,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 110,
       width: 40,
       height: 40,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('5'),
     );
     //14
     squarePaint(
@@ -1050,7 +1062,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 150,
       width: 80,
       height: 40,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('14'),
     );
     //13
     squarePaint(
@@ -1063,7 +1075,7 @@ class FloorMapPaint extends CustomPainter {
       posTop: 150,
       width: 40,
       height: 40,
-      onTapDown: (tapDetails) {},
+      onTapDown: (_) => getShopNext('13'),
     );
   }
 
