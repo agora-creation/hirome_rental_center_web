@@ -50,15 +50,18 @@ class _AgentOrderScreenState extends State<AgentOrderScreen> {
             style: TextStyle(fontSize: 18),
           ),
           const SizedBox(height: 8),
-          Center(
+          SizedBox(
+            width: kFloorMapWidth,
+            height: kFloorMapHeight,
             child: CanvasTouchDetector(
               gesturesToOverride: const [
                 GestureType.onTapDown,
               ],
-              builder: (context) => CustomPaint(
-                size: const Size(kFloorWidth, kFloorHeight),
-                painter: FloorPaint(context),
-              ),
+              builder: (context) {
+                return CustomPaint(
+                  painter: FloorMapPaint(context),
+                );
+              },
             ),
           ),
           const SizedBox(height: 8),
@@ -108,54 +111,102 @@ class _AgentOrderScreenState extends State<AgentOrderScreen> {
   }
 }
 
-class FloorPaint extends CustomPainter {
+class FloorMapPaint extends CustomPainter {
   final BuildContext context;
 
-  FloorPaint(this.context);
+  FloorMapPaint(this.context);
 
-  @override
-  void paint(Canvas _canvas, Size size) {
-    TouchyCanvas canvas = TouchyCanvas(context, _canvas);
-    const fTextStyle = TextStyle(
-      color: Colors.black,
-      fontSize: 16,
-      fontWeight: FontWeight.bold,
+  void squarePaint(
+    TouchyCanvas touchyCanvas,
+    Canvas canvas, {
+    required Color color,
+    required String label,
+    required bool bold,
+    required double posLeft,
+    required double posTop,
+    required double width,
+    required double height,
+    Function(TapDownDetails)? onTapDown,
+  }) {
+    final fill = Paint()..color = color;
+    touchyCanvas.drawRect(
+      Rect.fromLTWH(posLeft, posTop, width, height),
+      fill,
+      onTapDown: onTapDown,
     );
-    //背景
-    final paintBg = Paint()..color = Colors.grey.shade100;
-    canvas.drawRect(
-        const Rect.fromLTWH(0, 0, kFloorWidth, kFloorHeight), paintBg,
-        onTapDown: (_) {});
-    //65
-    final paint65 = Paint()..color = Colors.brown.shade300;
-    final paint65b = Paint()
+    final border = Paint()
       ..color = Colors.black
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1;
-    canvas.drawRect(
-      const Rect.fromLTWH(10, 10, 30, 50),
-      paint65,
-      onTapDown: (_) {
-        showMessage(context, 'テナント番号『65』が押されたよ！', true);
-      },
+    touchyCanvas.drawRRect(
+      RRect.fromLTRBR(
+          posLeft, posTop, width + posLeft, height + posTop, Radius.zero),
+      border,
+      onTapDown: onTapDown,
     );
-    canvas.drawRRect(
-      RRect.fromLTRBAndCorners(10, 10, 40, 60),
-      paint65b,
-      onTapDown: (_) {
-        showMessage(context, 'テナント番号『65』が押されたよ！', true);
-      },
-    );
-    const textSpan65 = TextSpan(
-      text: '65',
-      style: fTextStyle,
-    );
-    final textPainter65 = TextPainter(
-      text: textSpan65,
+    final textPainter = TextPainter(
+      text: TextSpan(
+        text: label,
+        style: bold ? kFloorMapTextStyle : kFloorMapTextStyle2,
+      ),
       textDirection: TextDirection.ltr,
     );
-    textPainter65.layout(minWidth: 0, maxWidth: 1000);
-    textPainter65.paint(_canvas, const Offset(15, 25));
+    textPainter.layout(minWidth: 0, maxWidth: kFloorMapWidth);
+    double offsetX = posLeft + 2;
+    double offsetY = posTop + 2;
+    textPainter.paint(canvas, Offset(offsetX, offsetY));
+  }
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    TouchyCanvas touchyCanvas = TouchyCanvas(context, canvas);
+    //背景
+    final paintBg = Paint()..color = Colors.grey.shade100;
+    touchyCanvas.drawRect(
+      const Rect.fromLTWH(0, 0, kFloorMapWidth, kFloorMapHeight),
+      paintBg,
+    );
+    //65
+    squarePaint(
+      touchyCanvas,
+      canvas,
+      color: Colors.brown.shade300,
+      label: '65',
+      bold: true,
+      posLeft: 10,
+      posTop: 10,
+      width: 30,
+      height: 30,
+      onTapDown: (tapDetails) {
+        showMessage(context, tapDetails.toString(), true);
+      },
+    );
+    //階段
+    squarePaint(
+      touchyCanvas,
+      canvas,
+      color: Colors.white,
+      label: '階段',
+      bold: false,
+      posLeft: 40,
+      posTop: 10,
+      width: 30,
+      height: 50,
+      onTapDown: (tapDetails) {},
+    );
+    //47
+    squarePaint(
+      touchyCanvas,
+      canvas,
+      color: Colors.brown.shade300,
+      label: '47',
+      bold: true,
+      posLeft: 70,
+      posTop: 10,
+      width: 40,
+      height: 60,
+      onTapDown: (tapDetails) {},
+    );
   }
 
   @override
