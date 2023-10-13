@@ -1102,68 +1102,36 @@ class FloorMapPaint extends CustomPainter {
       onTapDown: (_) => getShopNext('13'),
     );
     //ぎっちり日曜市
-    textPaint(
-      canvas,
-      label: 'ぎっちり日曜市',
-      posLeft: 170,
-      posTop: 110,
-    );
+    textPaint(canvas, label: 'ぎっちり日曜市', posLeft: 170, posTop: 110);
     //龍馬通り
-    textPaint(
-      canvas,
-      label: '龍馬通り',
-      posLeft: 520,
-      posTop: 110,
-    );
+    textPaint(canvas, label: '龍馬通り', posLeft: 520, posTop: 110);
     //ひろめばる
-    textPaint(
-      canvas,
-      label: 'ひ',
-      posLeft: 75,
-      posTop: 130,
-    );
+    textPaint(canvas, label: 'ひ', posLeft: 75, posTop: 130);
+    textPaint(canvas, label: 'ろ', posLeft: 75, posTop: 150);
+    textPaint(canvas, label: 'め', posLeft: 75, posTop: 170);
+    textPaint(canvas, label: 'ば', posLeft: 75, posTop: 190);
+    textPaint(canvas, label: 'る', posLeft: 75, posTop: 210);
     //はいから横丁
-    textPaint(
-      canvas,
-      label: 'はいから横丁',
-      posLeft: 110,
-      posTop: 245,
-    );
+    textPaint(canvas, label: 'はいから横丁', posLeft: 110, posTop: 245);
     //自由広場
-    textPaint(
-      canvas,
-      label: '自由広場',
-      posLeft: 200,
-      posTop: 330,
-    );
+    textPaint(canvas, label: '自由広場', posLeft: 200, posTop: 330);
     //乙女小路
-    textPaint(
-      canvas,
-      label: '乙',
-      posLeft: 310,
-      posTop: 180,
-    );
+    textPaint(canvas, label: '乙', posLeft: 310, posTop: 180);
+    textPaint(canvas, label: '女', posLeft: 310, posTop: 200);
+    textPaint(canvas, label: '小', posLeft: 310, posTop: 220);
+    textPaint(canvas, label: '路', posLeft: 310, posTop: 240);
     //いごっそう横丁
-    textPaint(
-      canvas,
-      label: 'い',
-      posLeft: 430,
-      posTop: 180,
-    );
+    textPaint(canvas, label: 'い', posLeft: 430, posTop: 180);
+    textPaint(canvas, label: 'ご', posLeft: 430, posTop: 200);
+    textPaint(canvas, label: 'っ', posLeft: 430, posTop: 220);
+    textPaint(canvas, label: 'そ', posLeft: 430, posTop: 240);
+    textPaint(canvas, label: 'う', posLeft: 430, posTop: 260);
+    textPaint(canvas, label: '横', posLeft: 430, posTop: 280);
+    textPaint(canvas, label: '丁', posLeft: 430, posTop: 300);
     //お城下広場
-    textPaint(
-      canvas,
-      label: 'お城下広場',
-      posLeft: 540,
-      posTop: 320,
-    );
+    textPaint(canvas, label: 'お城下広場', posLeft: 540, posTop: 320);
     //よさこい広場
-    textPaint(
-      canvas,
-      label: 'よさこい広場',
-      posLeft: 800,
-      posTop: 160,
-    );
+    textPaint(canvas, label: 'よさこい広場', posLeft: 800, posTop: 160);
   }
 
   @override
