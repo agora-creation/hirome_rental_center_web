@@ -84,16 +84,4 @@ DateTime kLastDate = DateTime(
   1,
 ).subtract(const Duration(days: 1));
 
-const double kFloorMapWidth = 1000;
-const double kFloorMapHeight = 600;
 
-const TextStyle kFloorMapTextStyle = TextStyle(
-  color: kBlackColor,
-  fontSize: 16,
-  fontWeight: FontWeight.bold,
-);
-
-const TextStyle kFloorMapTextStyle2 = TextStyle(
-  color: kBlackColor,
-  fontSize: 12,
-);
