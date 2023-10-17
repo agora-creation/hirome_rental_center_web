@@ -162,19 +162,6 @@ class FloorMapPaint extends CustomPainter {
     pathBuildOut.lineTo(730, 300);
     pathBuildOut.close();
     touchyCanvas.drawPath(pathBuildOut, paintBuildOut);
-    //65
-    squarePaint(
-      touchyCanvas,
-      canvas,
-      color: Colors.brown.shade300,
-      label: '65',
-      bold: true,
-      posLeft: 20,
-      posTop: 20,
-      width: 40,
-      height: 40,
-      onTapDown: (_) => getShopNext('65'),
-    );
     //階段
     squarePaint(
       touchyCanvas,
@@ -702,14 +689,13 @@ class FloorMapPaint extends CustomPainter {
     squarePaint(
       touchyCanvas,
       canvas,
-      color: Colors.brown.shade300,
-      label: '63',
-      bold: true,
+      color: Colors.white,
+      label: '喫煙所',
+      bold: false,
       posLeft: 730,
       posTop: 210,
       width: 40,
       height: 60,
-      onTapDown: (_) => getShopNext('63'),
     );
     //51
     squarePaint(
