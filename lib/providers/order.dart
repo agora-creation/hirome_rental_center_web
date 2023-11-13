@@ -269,10 +269,25 @@ class OrderProvider with ChangeNotifier {
                 border: pw.Border.all(color: PdfColors.black),
               ),
               width: double.infinity,
-              height: 80,
+              height: 60,
               child: pw.Padding(
                 padding: const pw.EdgeInsets.all(4),
-                child: pw.Text('サイン', style: signStyle),
+                child: pw.Text('店舗受取サイン', style: signStyle),
+              ),
+            ),
+            pw.Container(
+              decoration: const pw.BoxDecoration(
+                border: pw.Border(
+                  left: pw.BorderSide(color: PdfColors.black),
+                  right: pw.BorderSide(color: PdfColors.black),
+                  bottom: pw.BorderSide(color: PdfColors.black),
+                ),
+              ),
+              width: double.infinity,
+              height: 60,
+              child: pw.Padding(
+                padding: const pw.EdgeInsets.all(4),
+                child: pw.Text('品質確認済', style: signStyle),
               ),
             ),
           ],
