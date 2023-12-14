@@ -23,8 +23,8 @@ class OrderList extends StatelessWidget {
           elevation: 5,
           child: Padding(
             padding: const EdgeInsets.symmetric(
-              vertical: 16,
-              horizontal: 24,
+              vertical: 20,
+              horizontal: 28,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -42,13 +42,19 @@ class OrderList extends StatelessWidget {
                     Text(
                       order.shopName,
                       style: const TextStyle(
-                        fontSize: 24,
+                        fontSize: 32,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
                 ),
-                Text(order.cartsText()),
+                Text(
+                  order.cartsText(),
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ],
             ),
           ),

@@ -34,7 +34,7 @@ class CartList2 extends StatelessWidget {
                 cart.name,
                 style: const TextStyle(
                   color: kBlackColor,
-                  fontSize: 20,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -54,7 +54,7 @@ class CartList2 extends StatelessWidget {
                 '${cart.deliveryQuantity}${cart.unit}',
                 style: const TextStyle(
                   color: kBlackColor,
-                  fontSize: 20,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),

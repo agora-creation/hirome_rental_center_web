@@ -42,7 +42,7 @@ class CartList extends StatelessWidget {
                 cart.name,
                 style: const TextStyle(
                   color: kBlackColor,
-                  fontSize: 20,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -64,7 +64,7 @@ class CartList extends StatelessWidget {
                     '${cart.requestQuantity}${cart.unit}',
                     style: const TextStyle(
                       color: kBlackColor,
-                      fontSize: 20,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -98,7 +98,7 @@ class CartList extends StatelessWidget {
                               icon: const Icon(
                                 Icons.remove,
                                 color: kBlueColor,
-                                size: 24,
+                                size: 28,
                               ),
                             ),
                           ),
@@ -108,7 +108,7 @@ class CartList extends StatelessWidget {
                               '${cart.deliveryQuantity}${cart.unit}',
                               style: const TextStyle(
                                 color: kBlueColor,
-                                fontSize: 20,
+                                fontSize: 24,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -120,7 +120,7 @@ class CartList extends StatelessWidget {
                               icon: const Icon(
                                 Icons.add,
                                 color: kBlueColor,
-                                size: 24,
+                                size: 28,
                               ),
                             ),
                           ),
@@ -144,6 +144,7 @@ class CartList extends StatelessWidget {
                             '－10',
                             style: TextStyle(
                               color: kBlueColor,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -154,7 +155,7 @@ class CartList extends StatelessWidget {
                             '${cart.deliveryQuantity}${cart.unit}',
                             style: const TextStyle(
                               color: Colors.transparent,
-                              fontSize: 20,
+                              fontSize: 24,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -170,6 +171,7 @@ class CartList extends StatelessWidget {
                             '＋10',
                             style: TextStyle(
                               color: kBlueColor,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),

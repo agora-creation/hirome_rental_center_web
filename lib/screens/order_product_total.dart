@@ -56,11 +56,18 @@ class _OrderProductTotalScreenState extends State<OrderProductTotalScreen> {
         backgroundColor: kWhiteColor,
         title: const Text(
           '食器センター : 受注商品集計',
-          style: TextStyle(color: kBlackColor),
+          style: TextStyle(
+            color: kBlackColor,
+            fontSize: 24,
+          ),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.close, color: kBlackColor),
+            icon: const Icon(
+              Icons.close,
+              color: kBlackColor,
+              size: 32,
+            ),
             onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
           ),
         ],

@@ -84,7 +84,10 @@ class OrderModel {
           backgroundColor: kRedColor,
           label: Text(
             '受注待ち',
-            style: TextStyle(color: kWhiteColor),
+            style: TextStyle(
+              color: kWhiteColor,
+              fontSize: 18,
+            ),
           ),
         );
         break;
@@ -93,7 +96,10 @@ class OrderModel {
           backgroundColor: kGreyColor,
           label: Text(
             '受注完了',
-            style: TextStyle(color: kBlackColor),
+            style: TextStyle(
+              color: kBlackColor,
+              fontSize: 18,
+            ),
           ),
         );
         break;
@@ -102,7 +108,10 @@ class OrderModel {
           backgroundColor: kOrangeColor,
           label: Text(
             'キャンセル',
-            style: TextStyle(color: kWhiteColor),
+            style: TextStyle(
+              color: kWhiteColor,
+              fontSize: 18,
+            ),
           ),
         );
         break;

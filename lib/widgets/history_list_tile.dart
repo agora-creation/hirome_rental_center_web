@@ -23,7 +23,7 @@ class HistoryListTile extends StatelessWidget {
           border: Border(bottom: BorderSide(color: kGreyColor)),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.all(16),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -35,22 +35,22 @@ class HistoryListTile extends StatelessWidget {
                       Text(
                         '注文日時 : ${dateText('yyyy/MM/dd HH:mm', order.createdAt)}',
                         style: const TextStyle(
-                          color: kGreyColor,
-                          fontSize: 14,
+                          color: kBlackColor,
+                          fontSize: 18,
                         ),
                       ),
                       Text(
                         '注文された店舗 : ${order.shopName}',
                         style: const TextStyle(
-                          color: kGreyColor,
-                          fontSize: 14,
+                          color: kBlackColor,
+                          fontSize: 18,
                         ),
                       ),
                       Text(
                         order.cartsText(),
                         style: const TextStyle(
                           color: kBlackColor,
-                          fontSize: 18,
+                          fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
                         overflow: TextOverflow.ellipsis,

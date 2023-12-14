@@ -19,7 +19,10 @@ class DateRangeField extends StatelessWidget {
     return ListTile(
       title: Text(
         '${dateText('yyyy/MM/dd', start)}～${dateText('yyyy/MM/dd', end)}',
-        style: const TextStyle(color: kGreyColor),
+        style: const TextStyle(
+          color: kBlackColor,
+          fontSize: 18,
+        ),
       ),
       trailing: const Icon(Icons.date_range, color: kGreyColor),
       onTap: onTap,

@@ -37,14 +37,14 @@ class QuantityButton extends StatelessWidget {
                 icon: const Icon(
                   Icons.remove,
                   color: kBlueColor,
-                  size: 26,
+                  size: 28,
                 ),
               ),
               Text(
                 '$quantity $unit',
                 style: const TextStyle(
                   color: kBlueColor,
-                  fontSize: 20,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -53,7 +53,7 @@ class QuantityButton extends StatelessWidget {
                 icon: const Icon(
                   Icons.add,
                   color: kBlueColor,
-                  size: 26,
+                  size: 28,
                 ),
               ),
             ],
@@ -74,6 +74,7 @@ class QuantityButton extends StatelessWidget {
                 '－10',
                 style: TextStyle(
                   color: kBlueColor,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -82,7 +83,7 @@ class QuantityButton extends StatelessWidget {
               '$quantity $unit',
               style: const TextStyle(
                 color: Colors.transparent,
-                fontSize: 20,
+                fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -97,6 +98,7 @@ class QuantityButton extends StatelessWidget {
                 '＋10',
                 style: TextStyle(
                   color: kBlueColor,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),

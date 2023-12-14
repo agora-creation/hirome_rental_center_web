@@ -53,7 +53,7 @@ class ProductList extends StatelessWidget {
                           Text(
                             product.name,
                             style: const TextStyle(
-                              fontSize: 20,
+                              fontSize: 24,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -61,7 +61,10 @@ class ProductList extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const Icon(Icons.chevron_right),
+                  const Icon(
+                    Icons.chevron_right,
+                    size: 24,
+                  ),
                 ],
               ),
             ),
@@ -77,7 +80,7 @@ class ProductList extends StatelessWidget {
                         '${contain.first.requestQuantity}${contain.first.unit} 選択中',
                         style: const TextStyle(
                           color: kWhiteColor,
-                          fontSize: 20,
+                          fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

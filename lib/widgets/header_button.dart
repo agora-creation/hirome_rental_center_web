@@ -23,9 +23,16 @@ class HeaderButton extends StatelessWidget {
           backgroundColor: backgroundColor,
         ),
         onPressed: onPressed,
-        child: Text(
-          label,
-          style: TextStyle(color: labelColor),
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Text(
+            label,
+            style: TextStyle(
+              color: labelColor,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
       ),
     );

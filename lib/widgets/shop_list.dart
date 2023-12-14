@@ -38,13 +38,16 @@ class ShopList extends StatelessWidget {
                   Text(
                     shop.name,
                     style: const TextStyle(
-                      fontSize: 20,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
               ),
-              const Icon(Icons.chevron_right),
+              const Icon(
+                Icons.chevron_right,
+                size: 24,
+              ),
             ],
           ),
         ),

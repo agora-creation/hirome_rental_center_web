@@ -46,12 +46,17 @@ class _AgentOrderScreenState extends State<AgentOrderScreen> {
           '食器センター : 代理注文 - 店舗選択',
           style: TextStyle(
             color: kBlackColor,
+            fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.close, color: kBlackColor),
+            icon: const Icon(
+              Icons.close,
+              color: kBlackColor,
+              size: 32,
+            ),
             onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
           ),
         ],

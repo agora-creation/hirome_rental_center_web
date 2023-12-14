@@ -30,14 +30,14 @@ class OrderProductTotalList extends StatelessWidget {
                 '商品番号 : ${product.number}',
                 style: const TextStyle(
                   color: kGreyColor,
-                  fontSize: 12,
+                  fontSize: 16,
                 ),
               ),
               Text(
                 product.name,
                 style: const TextStyle(
                   color: kBlackColor,
-                  fontSize: 16,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -50,14 +50,14 @@ class OrderProductTotalList extends StatelessWidget {
                 '合計納品数量',
                 style: TextStyle(
                   color: kGreyColor,
-                  fontSize: 12,
+                  fontSize: 16,
                 ),
               ),
               Text(
                 '$total${product.unit}',
                 style: const TextStyle(
                   color: kBlackColor,
-                  fontSize: 16,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),

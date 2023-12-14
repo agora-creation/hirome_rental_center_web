@@ -20,7 +20,10 @@ class ShopDropdownButton extends StatelessWidget {
       value: null,
       child: Padding(
         padding: EdgeInsets.all(4),
-        child: Text('店舗未選択'),
+        child: Text(
+          '店舗未選択',
+          style: TextStyle(fontSize: 18),
+        ),
       ),
     ));
     for (ShopModel shop in shops) {
@@ -28,7 +31,10 @@ class ShopDropdownButton extends StatelessWidget {
         value: shop.number,
         child: Padding(
           padding: const EdgeInsets.all(4),
-          child: Text(shop.name),
+          child: Text(
+            shop.name,
+            style: const TextStyle(fontSize: 18),
+          ),
         ),
       ));
     }
@@ -38,7 +44,10 @@ class ShopDropdownButton extends StatelessWidget {
       onChanged: onChanged,
       hint: const Padding(
         padding: EdgeInsets.all(4),
-        child: Text('店舗未選択'),
+        child: Text(
+          '店舗未選択',
+          style: TextStyle(fontSize: 18),
+        ),
       ),
       elevation: 0,
       underline: Container(),

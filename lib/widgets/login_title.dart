@@ -13,14 +13,14 @@ class LoginTitle extends StatelessWidget {
           kCompanyName,
           style: TextStyle(
             color: kWhiteColor,
-            fontSize: 20,
+            fontSize: 24,
           ),
         ),
         Text(
           kSystemName,
           style: TextStyle(
             color: kWhiteColor,
-            fontSize: 22,
+            fontSize: 26,
           ),
         ),
         SizedBox(height: 4),
@@ -28,7 +28,7 @@ class LoginTitle extends StatelessWidget {
           kForName,
           style: TextStyle(
             color: kWhiteColor,
-            fontSize: 28,
+            fontSize: 32,
             fontWeight: FontWeight.bold,
           ),
         ),

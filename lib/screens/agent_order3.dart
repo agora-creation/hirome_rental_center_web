@@ -37,6 +37,7 @@ class _AgentOrder3ScreenState extends State<AgentOrder3Screen> {
           icon: const Icon(
             Icons.chevron_left,
             color: kBlackColor,
+            size: 32,
           ),
           onPressed: () => Navigator.pop(context),
         ),
@@ -44,6 +45,7 @@ class _AgentOrder3ScreenState extends State<AgentOrder3Screen> {
           '食器センター : 代理注文 - 注文確認',
           style: TextStyle(
             color: kBlackColor,
+            fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
         ),

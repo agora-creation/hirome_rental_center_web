@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         '代理注文',
                         style: TextStyle(
                           color: kWhiteColor,
-                          fontSize: 20,
+                          fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -67,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         '受注履歴',
                         style: TextStyle(
                           color: kWhiteColor,
-                          fontSize: 20,
+                          fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         '受注商品集計',
                         style: TextStyle(
                           color: kWhiteColor,
-                          fontSize: 20,
+                          fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         '設定',
                         style: TextStyle(
                           color: kWhiteColor,
-                          fontSize: 20,
+                          fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -130,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             '未処理の注文がありません',
                             style: TextStyle(
                               color: kWhiteColor,
-                              fontSize: 24,
+                              fontSize: 32,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -243,14 +243,7 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
             ),
             const SizedBox(height: 8),
             Text(
-              '注文日時 : ${dateText('yyyy/MM/dd HH:mm', widget.order.createdAt)}',
-              style: const TextStyle(
-                color: kGreyColor,
-                fontSize: 18,
-              ),
-            ),
-            Text(
-              '注文された店舗 : ${widget.order.shopName}',
+              '注文日時 : ${dateText('yyyy/MM/dd HH:mm', widget.order.createdAt)}／注文された店舗 : ${widget.order.shopName}',
               style: const TextStyle(
                 color: kGreyColor,
                 fontSize: 18,
@@ -264,7 +257,7 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
             const SizedBox(height: 4),
             const Divider(height: 1, color: kGreyColor),
             SizedBox(
-              height: 350,
+              height: 400,
               child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: carts.length,

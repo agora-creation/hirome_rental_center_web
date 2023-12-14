@@ -29,7 +29,7 @@ class CustomLgButton extends StatelessWidget {
           label,
           style: TextStyle(
             color: labelColor,
-            fontSize: 20,
+            fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
         ),

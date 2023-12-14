@@ -60,6 +60,11 @@ class OrderProvider with ChangeNotifier {
         newCarts.add(cart.toMap());
         newCarts2.add(cart);
       }
+      await _receiptPrint(
+        shopName: shop.name,
+        carts: newCarts2,
+        createdAt: DateTime.now(),
+      );
       orderService.create({
         'id': id,
         'number': number,
@@ -72,11 +77,6 @@ class OrderProvider with ChangeNotifier {
         'updatedAt': DateTime.now(),
         'createdAt': DateTime.now(),
       });
-      await _receiptPrint(
-        shopName: shop.name,
-        carts: newCarts2,
-        createdAt: DateTime.now(),
-      );
     } catch (e) {
       error = '注文に失敗しました';
     }
@@ -109,17 +109,17 @@ class OrderProvider with ChangeNotifier {
           newCarts2.add(cart);
         }
       }
+      await _receiptPrint(
+        shopName: order.shopName,
+        carts: newCarts2,
+        createdAt: order.createdAt,
+      );
       orderService.update({
         'id': order.id,
         'carts': newCarts,
         'status': 1,
         'updatedAt': DateTime.now(),
       });
-      await _receiptPrint(
-        shopName: order.shopName,
-        carts: newCarts2,
-        createdAt: order.createdAt,
-      );
     } catch (e) {
       error = '受注に失敗しました';
     }
@@ -143,17 +143,17 @@ class OrderProvider with ChangeNotifier {
           newCarts2.add(cart);
         }
       }
+      await _receiptPrint(
+        shopName: order.shopName,
+        carts: newCarts2,
+        createdAt: order.createdAt,
+      );
       orderService.update({
         'id': order.id,
         'carts': newCarts,
         'status': 1,
         'updatedAt': DateTime.now(),
       });
-      await _receiptPrint(
-        shopName: order.shopName,
-        carts: newCarts2,
-        createdAt: order.createdAt,
-      );
     } catch (e) {
       error = '再受注に失敗しました';
     }

@@ -10,7 +10,6 @@ import 'package:hirome_rental_center_web/screens/agent_order3.dart';
 import 'package:hirome_rental_center_web/services/product.dart';
 import 'package:hirome_rental_center_web/widgets/custom_image.dart';
 import 'package:hirome_rental_center_web/widgets/custom_lg_button.dart';
-import 'package:hirome_rental_center_web/widgets/header_button.dart';
 import 'package:hirome_rental_center_web/widgets/link_text.dart';
 import 'package:hirome_rental_center_web/widgets/product_list.dart';
 import 'package:hirome_rental_center_web/widgets/quantity_button.dart';
@@ -43,6 +42,7 @@ class _AgentOrder2ScreenState extends State<AgentOrder2Screen> {
           icon: const Icon(
             Icons.chevron_left,
             color: kBlackColor,
+            size: 32,
           ),
           onPressed: () => Navigator.pop(context),
         ),
@@ -50,25 +50,10 @@ class _AgentOrder2ScreenState extends State<AgentOrder2Screen> {
           '食器センター : 代理注文 - 商品選択',
           style: TextStyle(
             color: kBlackColor,
+            fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
         ),
-        actions: [
-          orderProvider.carts.isNotEmpty
-              ? HeaderButton(
-                  label: '注文に進む',
-                  labelColor: kWhiteColor,
-                  backgroundColor: kBlueColor,
-                  onPressed: () => pushScreen(
-                    context,
-                    AgentOrder3Screen(
-                      shop: widget.shop,
-                      carts: orderProvider.carts,
-                    ),
-                  ),
-                )
-              : Container(),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 600),
@@ -78,11 +63,28 @@ class _AgentOrder2ScreenState extends State<AgentOrder2Screen> {
               '注文する店舗 : ${widget.shop.name}',
               style: const TextStyle(fontSize: 18),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 4),
             const Text(
               '注文する商品を選択してください',
               style: TextStyle(fontSize: 18),
             ),
+            orderProvider.carts.isNotEmpty
+                ? const SizedBox(height: 8)
+                : Container(),
+            orderProvider.carts.isNotEmpty
+                ? CustomLgButton(
+                    label: '注文に進む',
+                    labelColor: kWhiteColor,
+                    backgroundColor: kBlueColor,
+                    onPressed: () => pushScreen(
+                      context,
+                      AgentOrder3Screen(
+                        shop: widget.shop,
+                        carts: orderProvider.carts,
+                      ),
+                    ),
+                  )
+                : Container(),
             const SizedBox(height: 8),
             const Divider(height: 1, color: kGreyColor),
             Expanded(
@@ -192,7 +194,7 @@ class _ProductDetailsDialogState extends State<ProductDetailsDialog> {
             widget.product.name,
             style: const TextStyle(
               color: kBlackColor,
-              fontSize: 24,
+              fontSize: 32,
               fontWeight: FontWeight.bold,
             ),
           ),

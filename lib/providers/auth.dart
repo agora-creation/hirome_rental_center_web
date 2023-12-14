@@ -37,11 +37,11 @@ class AuthProvider with ChangeNotifier {
     try {
       _status = AuthStatus.authenticating;
       notifyListeners();
+      String token = await messagingService.getToken();
       await auth?.signInAnonymously().then((value) async {
         _authUser = value.user;
         if (loginId.text == 'syokki' && password.text == 'hirome0101') {
           await setPrefsString('loginId', 'syokki');
-          String token = await messagingService.getToken();
           centerService.create({
             'id': value.user?.uid,
             'token': token,

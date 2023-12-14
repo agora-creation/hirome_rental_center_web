@@ -28,11 +28,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
         backgroundColor: kWhiteColor,
         title: const Text(
           '食器センター : 設定',
-          style: TextStyle(color: kBlackColor),
+          style: TextStyle(
+            color: kBlackColor,
+            fontSize: 24,
+          ),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.close, color: kBlackColor),
+            icon: const Icon(
+              Icons.close,
+              color: kBlackColor,
+              size: 32,
+            ),
             onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
           ),
         ],

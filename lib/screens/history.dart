@@ -53,12 +53,17 @@ class _HistoryScreenState extends State<HistoryScreen> {
           '食器センター : 受注履歴',
           style: TextStyle(
             color: kBlackColor,
+            fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.close, color: kBlackColor),
+            icon: const Icon(
+              Icons.close,
+              color: kBlackColor,
+              size: 32,
+            ),
             onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
           ),
         ],
@@ -124,7 +129,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   }
                   if (orders.isEmpty) {
                     return const Center(
-                      child: Text('注文がありません'),
+                      child: Text(
+                        '注文がありません',
+                        style: TextStyle(fontSize: 24),
+                      ),
                     );
                   }
                   return ListView.builder(
@@ -214,21 +222,7 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
             ),
             const SizedBox(height: 8),
             Text(
-              '注文日時 : ${dateText('yyyy/MM/dd HH:mm', widget.order.createdAt)}',
-              style: const TextStyle(
-                color: kGreyColor,
-                fontSize: 18,
-              ),
-            ),
-            Text(
-              '注文された店舗 : ${widget.order.shopName}',
-              style: const TextStyle(
-                color: kGreyColor,
-                fontSize: 18,
-              ),
-            ),
-            Text(
-              'ステータス : ${widget.order.statusText()}',
+              '注文日時 : ${dateText('yyyy/MM/dd HH:mm', widget.order.createdAt)}／注文された店舗 : ${widget.order.shopName}／ステータス : ${widget.order.statusText()}',
               style: const TextStyle(
                 color: kGreyColor,
                 fontSize: 18,
