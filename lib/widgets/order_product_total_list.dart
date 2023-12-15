@@ -29,8 +29,8 @@ class OrderProductTotalList extends StatelessWidget {
               Text(
                 '商品番号 : ${product.number}',
                 style: const TextStyle(
-                  color: kGreyColor,
-                  fontSize: 16,
+                  color: kBlackColor,
+                  fontSize: 20,
                 ),
               ),
               Text(

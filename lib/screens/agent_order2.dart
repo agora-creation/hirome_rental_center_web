@@ -8,6 +8,7 @@ import 'package:hirome_rental_center_web/models/shop.dart';
 import 'package:hirome_rental_center_web/providers/order.dart';
 import 'package:hirome_rental_center_web/screens/agent_order3.dart';
 import 'package:hirome_rental_center_web/services/product.dart';
+import 'package:hirome_rental_center_web/widgets/cart_list2.dart';
 import 'package:hirome_rental_center_web/widgets/custom_image.dart';
 import 'package:hirome_rental_center_web/widgets/custom_lg_button.dart';
 import 'package:hirome_rental_center_web/widgets/link_text.dart';
@@ -55,79 +56,101 @@ class _AgentOrder2ScreenState extends State<AgentOrder2Screen> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 600),
-        child: Column(
-          children: [
-            Text(
-              '注文する店舗 : ${widget.shop.name}',
-              style: const TextStyle(fontSize: 18),
-            ),
-            const SizedBox(height: 4),
-            const Text(
-              '注文する商品を選択してください',
-              style: TextStyle(fontSize: 18),
-            ),
-            orderProvider.carts.isNotEmpty
-                ? const SizedBox(height: 8)
-                : Container(),
-            orderProvider.carts.isNotEmpty
-                ? CustomLgButton(
-                    label: '注文に進む',
-                    labelColor: kWhiteColor,
-                    backgroundColor: kBlueColor,
-                    onPressed: () => pushScreen(
-                      context,
-                      AgentOrder3Screen(
-                        shop: widget.shop,
-                        carts: orderProvider.carts,
-                      ),
-                    ),
-                  )
-                : Container(),
-            const SizedBox(height: 8),
-            const Divider(height: 1, color: kGreyColor),
-            Expanded(
-              child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                stream: productService.streamList(),
-                builder: (context, snapshot) {
-                  List<ProductModel> products = [];
-                  if (snapshot.hasData) {
-                    for (DocumentSnapshot<Map<String, dynamic>> doc
-                        in snapshot.data!.docs) {
-                      products.add(ProductModel.fromSnapshot(doc));
-                    }
-                  }
-                  if (products.isEmpty) {
-                    return const Center(
-                      child: Text('商品がありません'),
-                    );
-                  }
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: products.length,
-                    itemBuilder: (context, index) {
-                      ProductModel product = products[index];
-                      return ProductList(
-                        product: product,
-                        carts: orderProvider.carts,
-                        onTap: () => showDialog(
-                          context: context,
-                          builder: (context) => ProductDetailsDialog(
-                            orderProvider: orderProvider,
-                            product: product,
+      body: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 600),
+            child: Column(
+              children: [
+                Text(
+                  '注文する店舗 : ${widget.shop.name}',
+                  style: const TextStyle(fontSize: 18),
+                ),
+                const SizedBox(height: 4),
+                const Text(
+                  '注文する商品を選択してください',
+                  style: TextStyle(fontSize: 18),
+                ),
+                orderProvider.carts.isNotEmpty
+                    ? const SizedBox(height: 8)
+                    : Container(),
+                orderProvider.carts.isNotEmpty
+                    ? CustomLgButton(
+                        label: '注文に進む',
+                        labelColor: kWhiteColor,
+                        backgroundColor: kBlueColor,
+                        onPressed: () => pushScreen(
+                          context,
+                          AgentOrder3Screen(
+                            shop: widget.shop,
+                            carts: orderProvider.carts,
                           ),
-                        ).then((value) {
-                          orderProvider.initCarts();
-                        }),
+                        ),
+                      )
+                    : Container(),
+                const SizedBox(height: 8),
+                const Divider(height: 1, color: kGreyColor),
+                Expanded(
+                  child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                    stream: productService.streamList(),
+                    builder: (context, snapshot) {
+                      List<ProductModel> products = [];
+                      if (snapshot.hasData) {
+                        for (DocumentSnapshot<Map<String, dynamic>> doc
+                            in snapshot.data!.docs) {
+                          products.add(ProductModel.fromSnapshot(doc));
+                        }
+                      }
+                      if (products.isEmpty) {
+                        return const Center(
+                          child: Text('商品がありません'),
+                        );
+                      }
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: products.length,
+                        itemBuilder: (context, index) {
+                          ProductModel product = products[index];
+                          return ProductList(
+                            product: product,
+                            carts: orderProvider.carts,
+                            onTap: () => showDialog(
+                              context: context,
+                              builder: (context) => ProductDetailsDialog(
+                                orderProvider: orderProvider,
+                                product: product,
+                              ),
+                            ).then((value) {
+                              orderProvider.initCarts();
+                            }),
+                          );
+                        },
                       );
                     },
-                  );
-                },
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: SizedBox(
+                width: 400,
+                child: Card(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: orderProvider.carts.map((cart) {
+                      return CartList2(cart: cart);
+                    }).toList(),
+                  ),
+                ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
