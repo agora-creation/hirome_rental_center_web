@@ -36,11 +36,9 @@ class OrderService {
     return FirebaseFirestore.instance
         .collection(collection)
         .where('shopNumber', isEqualTo: searchShop)
-        .where('status', whereIn: [1, 9])
+        .where('status', isEqualTo: 1)
         .orderBy('createdAt', descending: true)
-        .startAt([endAt])
-        .endAt([startAt])
-        .snapshots();
+        .startAt([endAt]).endAt([startAt]).snapshots();
   }
 
   Future<List<OrderModel>> selectList({
