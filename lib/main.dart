@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hirome_rental_center_web/common/functions.dart';
 import 'package:hirome_rental_center_web/common/style.dart';
-import 'package:hirome_rental_center_web/providers/auth.dart';
+import 'package:hirome_rental_center_web/providers/auth.dart' as ap;
 import 'package:hirome_rental_center_web/providers/order.dart';
 import 'package:hirome_rental_center_web/screens/home.dart';
 import 'package:hirome_rental_center_web/screens/login.dart';
@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(value: AuthProvider.initialize()),
+        ChangeNotifierProvider.value(value: ap.AuthProvider.initialize()),
         ChangeNotifierProvider.value(value: OrderProvider()),
       ],
       child: MaterialApp(
@@ -72,14 +72,14 @@ class SplashController extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
+    final authProvider = Provider.of<ap.AuthProvider>(context);
     switch (authProvider.status) {
-      case AuthStatus.uninitialized:
+      case ap.AuthStatus.uninitialized:
         return const SplashScreen();
-      case AuthStatus.unauthenticated:
-      case AuthStatus.authenticating:
+      case ap.AuthStatus.unauthenticated:
+      case ap.AuthStatus.authenticating:
         return const LoginScreen();
-      case AuthStatus.authenticated:
+      case ap.AuthStatus.authenticated:
         return const HomeScreen();
       default:
         return const LoginScreen();

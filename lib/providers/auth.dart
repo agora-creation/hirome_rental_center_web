@@ -37,6 +37,7 @@ class AuthProvider with ChangeNotifier {
     try {
       _status = AuthStatus.authenticating;
       notifyListeners();
+      //String token = '';
       String token = await messagingService.getToken();
       await auth?.signInAnonymously().then((value) async {
         _authUser = value.user;
