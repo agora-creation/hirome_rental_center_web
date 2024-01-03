@@ -178,6 +178,7 @@ class OrderDetailsDialog extends StatefulWidget {
 }
 
 class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
+  bool buttonDisabled = false;
   ProductService productService = ProductService();
   List<CartModel> carts = [];
   List<CartModel> cartsWash = [];
@@ -341,26 +342,39 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
             Center(
               child: SizedBox(
                 width: 500,
-                child: CustomLgButton(
-                  label: '上記内容で受注する',
-                  labelColor: kWhiteColor,
-                  backgroundColor: kBlueColor,
-                  onPressed: () async {
-                    String? error = await orderProvider.ordered(
-                      order: widget.order,
-                      carts: carts,
-                      cartsWash: cartsWash,
-                    );
-                    if (error != null) {
-                      if (!mounted) return;
-                      showMessage(context, error, false);
-                      return;
-                    }
-                    if (!mounted) return;
-                    showMessage(context, '受注に成功しました', true);
-                    Navigator.pop(context);
-                  },
-                ),
+                child: buttonDisabled
+                    ? const CustomLgButton(
+                        label: '上記内容で受注する',
+                        labelColor: kWhiteColor,
+                        backgroundColor: kGreyColor,
+                        onPressed: null,
+                      )
+                    : CustomLgButton(
+                        label: '上記内容で受注する',
+                        labelColor: kWhiteColor,
+                        backgroundColor: kBlueColor,
+                        onPressed: () async {
+                          setState(() {
+                            buttonDisabled = true;
+                          });
+                          String? error = await orderProvider.ordered(
+                            order: widget.order,
+                            carts: carts,
+                            cartsWash: cartsWash,
+                          );
+                          if (error != null) {
+                            if (!mounted) return;
+                            showMessage(context, error, false);
+                            setState(() {
+                              buttonDisabled = false;
+                            });
+                            return;
+                          }
+                          if (!mounted) return;
+                          showMessage(context, '受注に成功しました', true);
+                          Navigator.pop(context);
+                        },
+                      ),
               ),
             ),
             const Center(

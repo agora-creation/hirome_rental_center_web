@@ -25,6 +25,8 @@ class AgentOrder3Screen extends StatefulWidget {
 }
 
 class _AgentOrder3ScreenState extends State<AgentOrder3Screen> {
+  bool buttonDisabled = false;
+
   @override
   Widget build(BuildContext context) {
     final orderProvider = Provider.of<OrderProvider>(context);
@@ -83,27 +85,40 @@ class _AgentOrder3ScreenState extends State<AgentOrder3Screen> {
             ),
             const Divider(height: 1, color: kGreyColor),
             const SizedBox(height: 32),
-            CustomLgButton(
-              label: '注文する',
-              labelColor: kWhiteColor,
-              backgroundColor: kBlueColor,
-              onPressed: () async {
-                String? error = await orderProvider.create(
-                  shop: widget.shop,
-                  carts: widget.carts,
-                );
-                if (error != null) {
-                  if (!mounted) return;
-                  showMessage(context, error, false);
-                  return;
-                }
-                await orderProvider.clearCart();
-                await orderProvider.initCarts();
-                if (!mounted) return;
-                showMessage(context, '注文に成功しました', true);
-                pushReplacementScreen(context, const HomeScreen());
-              },
-            ),
+            buttonDisabled
+                ? const CustomLgButton(
+                    label: '注文する',
+                    labelColor: kWhiteColor,
+                    backgroundColor: kGreyColor,
+                    onPressed: null,
+                  )
+                : CustomLgButton(
+                    label: '注文する',
+                    labelColor: kWhiteColor,
+                    backgroundColor: kBlueColor,
+                    onPressed: () async {
+                      setState(() {
+                        buttonDisabled = true;
+                      });
+                      String? error = await orderProvider.create(
+                        shop: widget.shop,
+                        carts: widget.carts,
+                      );
+                      if (error != null) {
+                        if (!mounted) return;
+                        showMessage(context, error, false);
+                        setState(() {
+                          buttonDisabled = false;
+                        });
+                        return;
+                      }
+                      await orderProvider.clearCart();
+                      await orderProvider.initCarts();
+                      if (!mounted) return;
+                      showMessage(context, '注文に成功しました', true);
+                      pushReplacementScreen(context, const HomeScreen());
+                    },
+                  ),
             const Center(
               child: Text(
                 '※レシートが発行されます',
