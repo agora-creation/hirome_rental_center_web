@@ -60,6 +60,9 @@ class OrderProvider with ChangeNotifier {
         newCarts.add(cart.toMap());
         newCarts2.add(cart);
       }
+      if (newCarts.isEmpty) {
+        return '注文に失敗しました';
+      }
       await _receiptPrint(
         shopName: shop.name,
         carts: newCarts2,
@@ -109,6 +112,9 @@ class OrderProvider with ChangeNotifier {
           newCarts2.add(cart);
         }
       }
+      if (newCarts.isEmpty) {
+        return '受注に失敗しました';
+      }
       await _receiptPrint(
         shopName: order.shopName,
         carts: newCarts2,
@@ -142,6 +148,9 @@ class OrderProvider with ChangeNotifier {
           newCarts.add(cart.toMap());
           newCarts2.add(cart);
         }
+      }
+      if (newCarts.isEmpty) {
+        return '再受注に失敗しました';
       }
       await _receiptPrint(
         shopName: order.shopName,
