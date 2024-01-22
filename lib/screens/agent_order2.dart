@@ -171,11 +171,11 @@ class ProductDetailsDialog extends StatefulWidget {
 }
 
 class _ProductDetailsDialogState extends State<ProductDetailsDialog> {
-  int requestQuantity = 1;
+  int requestQuantity = 0;
   CartModel? cart;
 
   void _init() async {
-    int tmpRequestQuantity = 1;
+    int tmpRequestQuantity = 0;
     for (CartModel cartModel in widget.orderProvider.carts) {
       if (cartModel.number == widget.product.number) {
         tmpRequestQuantity = cartModel.requestQuantity;
@@ -226,16 +226,16 @@ class _ProductDetailsDialogState extends State<ProductDetailsDialog> {
             quantity: requestQuantity,
             unit: widget.product.unit,
             onRemoved: () {
-              if (requestQuantity == 1) return;
+              if (requestQuantity == 0) return;
               setState(() {
                 requestQuantity -= 1;
               });
             },
             onRemoved10: () {
-              if (requestQuantity == 1) return;
+              if (requestQuantity == 0) return;
               setState(() {
                 if (requestQuantity <= 10) {
-                  requestQuantity = 1;
+                  requestQuantity = 0;
                 } else {
                   requestQuantity -= 10;
                 }
@@ -258,10 +258,14 @@ class _ProductDetailsDialogState extends State<ProductDetailsDialog> {
             labelColor: kWhiteColor,
             backgroundColor: kBlueColor,
             onPressed: () async {
-              await widget.orderProvider.addCarts(
-                widget.product,
-                requestQuantity,
-              );
+              if (requestQuantity > 0) {
+                await widget.orderProvider.addCarts(
+                  widget.product,
+                  requestQuantity,
+                );
+              } else if (cart != null) {
+                await widget.orderProvider.removeCart(cart!);
+              }
               if (!mounted) return;
               Navigator.pop(context);
             },
