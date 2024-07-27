@@ -15,6 +15,7 @@ class OrderModel {
   String _shopInvoiceName = '';
   List<CartModel> carts = [];
   int _status = 0;
+  String _createdUserName = '';
   DateTime _updatedAt = DateTime.now();
   DateTime _createdAt = DateTime.now();
 
@@ -25,6 +26,7 @@ class OrderModel {
   String get shopName => _shopName;
   String get shopInvoiceName => _shopInvoiceName;
   int get status => _status;
+  String get createdUserName => _createdUserName;
   DateTime get updatedAt => _updatedAt;
   DateTime get createdAt => _createdAt;
 
@@ -38,6 +40,7 @@ class OrderModel {
     _shopInvoiceName = map['shopInvoiceName'] ?? '';
     carts = _convertCarts(map['carts']);
     _status = map['status'] ?? 0;
+    _createdUserName = map['createdUserName'] ?? '';
     _updatedAt = map['updatedAt'].toDate() ?? DateTime.now();
     _createdAt = map['createdAt'].toDate() ?? DateTime.now();
   }

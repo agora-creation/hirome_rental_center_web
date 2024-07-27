@@ -244,7 +244,7 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
             ),
             const SizedBox(height: 8),
             Text(
-              '注文日時 : ${dateText('yyyy/MM/dd HH:mm', widget.order.createdAt)}／注文された店舗 : ${widget.order.shopName}',
+              '注文日時 : ${dateText('yyyy/MM/dd HH:mm', widget.order.createdAt)}／注文された店舗 : ${widget.order.shopName}／注文者名 : ${widget.order.createdUserName}',
               style: const TextStyle(
                 color: kGreyColor,
                 fontSize: 18,

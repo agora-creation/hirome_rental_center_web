@@ -77,6 +77,7 @@ class OrderProvider with ChangeNotifier {
         'shopInvoiceName': shop.invoiceName,
         'carts': newCarts,
         'status': 1,
+        'createdUserName': '',
         'updatedAt': DateTime.now(),
         'createdAt': DateTime.now(),
       });
