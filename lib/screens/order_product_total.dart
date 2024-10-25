@@ -10,6 +10,7 @@ import 'package:hirome_rental_center_web/providers/order.dart';
 import 'package:hirome_rental_center_web/services/order.dart';
 import 'package:hirome_rental_center_web/services/product.dart';
 import 'package:hirome_rental_center_web/services/shop.dart';
+import 'package:hirome_rental_center_web/widgets/custom_sm_button.dart';
 import 'package:hirome_rental_center_web/widgets/date_range_field.dart';
 import 'package:hirome_rental_center_web/widgets/order_product_total_list.dart';
 import 'package:hirome_rental_center_web/widgets/shop_dropdown_button.dart';
@@ -134,21 +135,38 @@ class _OrderProductTotalScreenState extends State<OrderProductTotalScreen> {
                         if (totalMap[key] == null) {
                           totalMap[key] = cart.deliveryQuantity;
                         } else {
-                          totalMap[key] = int.parse('${totalMap[key]}') + cart.deliveryQuantity;
+                          totalMap[key] = int.parse('${totalMap[key]}') +
+                              cart.deliveryQuantity;
                         }
                       }
                     }
                   }
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: products.length,
-                    itemBuilder: (context, index) {
-                      ProductModel product = products[index];
-                      return OrderProductTotalList(
-                        product: product,
-                        total: totalMap[product.number],
-                      );
-                    },
+                  return Column(
+                    children: [
+                      Expanded(
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: products.length,
+                          itemBuilder: (context, index) {
+                            ProductModel product = products[index];
+                            return OrderProductTotalList(
+                              product: product,
+                              total: totalMap[product.number],
+                            );
+                          },
+                        ),
+                      ),
+                      CustomSmButton(
+                        label: '印刷する',
+                        labelColor: kWhiteColor,
+                        backgroundColor: kGreyColor,
+                        onPressed: () async => await orderProvider.totalPrint(
+                          products: products,
+                          totalMap: totalMap,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                    ],
                   );
                 },
               ),

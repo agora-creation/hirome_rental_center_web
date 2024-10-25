@@ -201,6 +201,62 @@ class OrderProvider with ChangeNotifier {
     await cartService.clear();
   }
 
+  Future totalPrint({
+    required List<ProductModel> products,
+    required Map<String, int> totalMap,
+  }) async {
+    if (products.isEmpty) return;
+    final pdf = pw.Document();
+    final font = await rootBundle.load(kPdfFontUrl);
+    final ttf = pw.Font.ttf(font);
+    final productStyle = pw.TextStyle(
+      font: ttf,
+      fontSize: 8,
+    );
+    List<pw.TableRow> tableRows = [];
+    for (ProductModel product in products) {
+      int total = 0;
+      if (totalMap[product.number] != null) {
+        total = totalMap[product.number]!;
+      }
+      tableRows.add(pw.TableRow(
+        decoration: const pw.BoxDecoration(
+          border: pw.TableBorder(
+            bottom: pw.BorderSide(color: PdfColors.black),
+          ),
+        ),
+        children: [
+          pw.Text(product.number, style: productStyle),
+          pw.Text(product.name, style: productStyle),
+          pw.Text('$total${product.unit}', style: productStyle),
+        ],
+      ));
+    }
+    pdf.addPage(pw.Page(
+      pageFormat: PdfPageFormat.roll57,
+      build: (pw.Context context) {
+        return pw.Column(
+          crossAxisAlignment: pw.CrossAxisAlignment.start,
+          children: [
+            pw.Table(
+              columnWidths: {
+                0: const pw.IntrinsicColumnWidth(),
+                1: const pw.IntrinsicColumnWidth(),
+                2: const pw.IntrinsicColumnWidth(),
+              },
+              children: tableRows,
+            ),
+          ],
+        );
+      },
+    ));
+    await Printing.layoutPdf(
+      onLayout: (PdfPageFormat format) async => pdf.save(),
+      format: PdfPageFormat.roll57,
+      usePrinterSettings: true,
+    );
+  }
+
   Future _receiptPrint({
     String? shopName,
     List<CartModel>? carts,
