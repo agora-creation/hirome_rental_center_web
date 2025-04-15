@@ -77,7 +77,8 @@ class OrderProvider with ChangeNotifier {
         'shopInvoiceName': shop.invoiceName,
         'carts': newCarts,
         'status': 1,
-        'createdUserName': '',
+        'createdUserName': '食器センター',
+        'updatedUserName': '食器センター',
         'updatedAt': DateTime.now(),
         'createdAt': DateTime.now(),
       });
@@ -125,6 +126,7 @@ class OrderProvider with ChangeNotifier {
         'id': order.id,
         'carts': newCarts,
         'status': 1,
+        'updatedUserName': '食器センター',
         'updatedAt': DateTime.now(),
       });
     } catch (e) {
@@ -162,6 +164,7 @@ class OrderProvider with ChangeNotifier {
         'id': order.id,
         'carts': newCarts,
         'status': 1,
+        'updatedUserName': '食器センター',
         'updatedAt': DateTime.now(),
       });
     } catch (e) {
@@ -176,6 +179,7 @@ class OrderProvider with ChangeNotifier {
       orderService.update({
         'id': order.id,
         'status': 9,
+        'updatedUserName': '食器センター',
         'updatedAt': DateTime.now(),
       });
     } catch (e) {

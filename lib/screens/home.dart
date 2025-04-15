@@ -393,24 +393,70 @@ class _OrderDetailsDialogState extends State<OrderDetailsDialog> {
                 LinkText(
                   label: 'この注文をキャンセル',
                   labelColor: kRedColor,
-                  onTap: () async {
-                    String? error = await orderProvider.cancel(
-                      widget.order,
-                    );
-                    if (error != null) {
-                      if (!mounted) return;
-                      showMessage(context, error, false);
-                      return;
-                    }
-                    if (!mounted) return;
-                    showMessage(context, 'キャンセルに成功しました', true);
-                    Navigator.pop(context);
-                  },
+                  onTap: () => showDialog(
+                    context: context,
+                    builder: (context) => CancelDialog(
+                      orderProvider: orderProvider,
+                      order: widget.order,
+                    ),
+                  ),
                 ),
               ],
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class CancelDialog extends StatefulWidget {
+  final OrderProvider orderProvider;
+  final OrderModel order;
+
+  const CancelDialog({
+    required this.orderProvider,
+    required this.order,
+    super.key,
+  });
+
+  @override
+  State<CancelDialog> createState() => _CancelDialogState();
+}
+
+class _CancelDialogState extends State<CancelDialog> {
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      contentPadding: const EdgeInsets.all(16),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 8),
+          const Center(child: Text('本当にキャンセルしますか？')),
+          const SizedBox(height: 8),
+          CustomLgButton(
+            label: 'キャンセルする',
+            labelColor: kWhiteColor,
+            backgroundColor: kRedColor,
+            onPressed: () async {
+              String? error = await widget.orderProvider.cancel(
+                widget.order,
+              );
+              if (error != null) {
+                if (!mounted) return;
+                showMessage(context, error, false);
+                return;
+              }
+              if (!mounted) return;
+              showMessage(context, 'キャンセルに成功しました', true);
+              Navigator.pop(context);
+              Navigator.pop(context);
+            },
+          ),
+          const SizedBox(height: 8),
+        ],
       ),
     );
   }
