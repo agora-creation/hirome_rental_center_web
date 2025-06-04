@@ -383,11 +383,8 @@ class OrderProvider with ChangeNotifier {
       '発注元店舗名',
       '商品番号',
       '商品名',
-      '単価',
-      '単位',
       '希望数量',
       '納品数量',
-      '合計金額',
       'ステータス',
     ];
     List<OrderModel> orders = await orderService.selectList(
@@ -408,12 +405,8 @@ class OrderProvider with ChangeNotifier {
         row.add(order.shopName);
         row.add(cart.number);
         row.add(cart.name);
-        row.add('${cart.price}');
-        row.add(cart.unit);
         row.add('${cart.requestQuantity}');
         row.add('${cart.deliveryQuantity}');
-        int totalPrice = cart.price * cart.deliveryQuantity;
-        row.add('$totalPrice');
         row.add(order.statusText());
         rows.add(row);
       }
