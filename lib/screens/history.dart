@@ -160,7 +160,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
               label: '上記検索結果をCSV形式でダウンロード',
               labelColor: kWhiteColor,
               backgroundColor: kGreenColor,
-              onPressed: () {},
+              onPressed: () async {
+                await orderProvider.csvDownload();
+              },
             ),
             const Text(
               '※印刷したい場合は、ダウンロードしたCSVをExcelで開いて印刷してください。',

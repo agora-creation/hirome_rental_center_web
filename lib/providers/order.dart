@@ -374,11 +374,7 @@ class OrderProvider with ChangeNotifier {
     );
   }
 
-  Future csvDownload({
-    required DateTime searchStart,
-    required DateTime searchEnd,
-    required String? searchShop,
-  }) async {
+  Future csvDownload() async {
     final fileName = '${dateText('yyyyMMddHHmmss', DateTime.now())}.csv';
     List<String> header = [
       '注文日時',
@@ -394,7 +390,6 @@ class OrderProvider with ChangeNotifier {
       '合計金額',
       'ステータス',
     ];
-
     List<OrderModel> orders = await orderService.selectList(
       shopNumber: searchShop,
       searchStart: searchStart,
