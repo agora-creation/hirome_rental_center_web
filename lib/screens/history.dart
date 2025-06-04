@@ -10,6 +10,7 @@ import 'package:hirome_rental_center_web/services/order.dart';
 import 'package:hirome_rental_center_web/services/shop.dart';
 import 'package:hirome_rental_center_web/widgets/cart_list.dart';
 import 'package:hirome_rental_center_web/widgets/custom_lg_button.dart';
+import 'package:hirome_rental_center_web/widgets/custom_sm_button.dart';
 import 'package:hirome_rental_center_web/widgets/date_range_field.dart';
 import 'package:hirome_rental_center_web/widgets/history_list_tile.dart';
 import 'package:hirome_rental_center_web/widgets/shop_dropdown_button.dart';
@@ -155,6 +156,17 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 },
               ),
             ),
+            CustomSmButton(
+              label: '上記検索結果をCSV形式でダウンロード',
+              labelColor: kWhiteColor,
+              backgroundColor: kGreenColor,
+              onPressed: () {},
+            ),
+            const Text(
+              '※印刷したい場合は、ダウンロードしたCSVをExcelで開いて印刷してください。',
+              style: TextStyle(color: kRedColor),
+            ),
+            const SizedBox(height: 8),
           ],
         ),
       ),

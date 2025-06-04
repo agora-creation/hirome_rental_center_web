@@ -1,3 +1,6 @@
+import 'dart:html';
+
+import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hirome_rental_center_web/common/functions.dart';
@@ -369,5 +372,66 @@ class OrderProvider with ChangeNotifier {
       format: PdfPageFormat.roll57,
       usePrinterSettings: true,
     );
+  }
+
+  Future csvDownload({
+    required DateTime searchStart,
+    required DateTime searchEnd,
+    required String? searchShop,
+  }) async {
+    final fileName = '${dateText('yyyyMMddHHmmss', DateTime.now())}.csv';
+    List<String> header = [
+      '注文日時',
+      '注文番号',
+      '発注元店舗番号',
+      '発注元店舗名',
+      '商品番号',
+      '商品名',
+      '単価',
+      '単位',
+      '希望数量',
+      '納品数量',
+      '合計金額',
+      'ステータス',
+    ];
+
+    List<OrderModel> orders = await orderService.selectList(
+      shopNumber: searchShop,
+      searchStart: searchStart,
+      searchEnd: searchEnd,
+    );
+    List<List<String>> rows = [];
+    for (OrderModel order in orders) {
+      if (order.status != 1) {
+        continue;
+      }
+      for (CartModel cart in order.carts) {
+        List<String> row = [];
+        row.add(dateText('yyyy/MM/dd HH:mm', order.createdAt));
+        row.add(order.number);
+        row.add(order.shopNumber);
+        row.add(order.shopName);
+        row.add(cart.number);
+        row.add(cart.name);
+        row.add('${cart.price}');
+        row.add(cart.unit);
+        row.add('${cart.requestQuantity}');
+        row.add('${cart.deliveryQuantity}');
+        int totalPrice = cart.price * cart.deliveryQuantity;
+        row.add('$totalPrice');
+        row.add(order.statusText());
+        rows.add(row);
+      }
+    }
+    String csv = const ListToCsvConverter().convert(
+      [header, ...rows],
+    );
+    String bom = '\uFEFF';
+    String csvText = bom + csv;
+    csvText = csvText.replaceAll('[', '');
+    csvText = csvText.replaceAll(']', '');
+    AnchorElement(href: 'data:text/plain;charset=utf-8,$csvText')
+      ..setAttribute('download', fileName)
+      ..click();
   }
 }
